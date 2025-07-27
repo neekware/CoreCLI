@@ -1,0 +1,53 @@
+{
+  // Python settings
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.terminal.activateEnvironment": true,
+
+  // Formatting
+  "python.formatting.provider": "black",
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+
+  // Linting
+  "python.linting.enabled": true,
+  "python.linting.ruffEnabled": true,
+  "python.linting.mypyEnabled": true,
+
+  // Type checking
+  "python.analysis.typeCheckingMode": "strict",
+
+  // Spell checking
+  "cSpell.enabled": true,
+  "cSpell.configPath": "${workspaceFolder}/cspell.json",
+
+  // File associations
+  "files.associations": {
+    "*.md": "markdown",
+    "*.yml": "yaml",
+    "*.yaml": "yaml"
+  },
+
+  // Exclude patterns
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/.mypy_cache": true,
+    "**/.ruff_cache": true,
+    "**/.pytest_cache": true,
+    "**/htmlcov": true,
+    "**/.coverage": true
+  },
+
+  // Editor settings
+  "editor.rulers": [88],
+  "editor.tabSize": 4,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+
+  // Git settings
+  "git.ignoreLimitWarning": true
+}
