@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+logs/
+models/
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+.mypy_cache/
+.ruff_cache/
+
+# CLI executable (created by setup.sh in project root)
+/cli
+
+# Keep .claude directory structure but ignore some files
+.claude/*
+!.claude/.keep
+!.claude/CLAUDE.md

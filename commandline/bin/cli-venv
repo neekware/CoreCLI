@@ -1,0 +1,50 @@
+#!/bin/bash
+# cli - venv version
+# This version is installed into .venv/bin/ and assumes it's running from there
+
+# Get the virtual environment root (two levels up from .venv/bin/)
+VENV_BIN_DIR="$(cd "$(dirname "$0")" && pwd)"
+VENV_DIR="$(dirname "$VENV_BIN_DIR")"
+PROJECT_ROOT="$(dirname "$VENV_DIR")"
+
+# Try to get project name from various sources
+PROJECT_NAME=""
+
+# Try git remote origin first
+if [ -d "$PROJECT_ROOT/.git" ] && command -v git >/dev/null 2>&1; then
+    GIT_REMOTE=$(cd "$PROJECT_ROOT" && git remote get-url origin 2>/dev/null | sed 's/.*\///' | sed 's/\.git$//')
+    if [ -n "$GIT_REMOTE" ]; then
+        PROJECT_NAME="$GIT_REMOTE"
+    fi
+fi
+
+# If no git remote, try pyproject.toml
+if [ -z "$PROJECT_NAME" ] && [ -f "$PROJECT_ROOT/pyproject.toml" ]; then
+    PROJECT_NAME=$(grep '^name = ' "$PROJECT_ROOT/pyproject.toml" 2>/dev/null | sed 's/name = "//' | sed 's/"//')
+fi
+
+# Fallback to directory name
+if [ -z "$PROJECT_NAME" ]; then
+    PROJECT_NAME="$(basename "$PROJECT_ROOT")"
+fi
+
+# Check if we're in an activated virtual environment
+if [ -z "$VIRTUAL_ENV" ]; then
+    echo "cli ($PROJECT_NAME)" >&2
+    echo "Error: Virtual environment is not activated!" >&2
+    echo "Please run: source .venv/bin/activate" >&2
+    exit 1
+fi
+
+# Verify this is the correct venv
+if [ "$VIRTUAL_ENV" != "$VENV_DIR" ]; then
+    echo "cli ($PROJECT_NAME)" >&2
+    echo "Error: Wrong virtual environment activated!" >&2
+    echo "Expected: $VENV_DIR" >&2
+    echo "Active: $VIRTUAL_ENV" >&2
+    exit 1
+fi
+
+# Use the venv's Python to run CLI as a module
+cd "$PROJECT_ROOT"
+exec "$VENV_BIN_DIR/python" -m commandline.main "$@"
