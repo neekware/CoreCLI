@@ -26,10 +26,13 @@ A clean, modular command-line interface demonstrating best practices in CLI deve
 # Setup (installs dependencies and pre-commit hooks)
 ./setup.sh
 
-# Use the CLI
-./cli --help
-./cli proj -s              # Show repository size
-./cli dev -a               # Run all code checks
+# Activate the virtual environment
+source .venv/bin/activate
+
+# Now use 'cli' directly
+cli --help
+cli proj -s                # Show repository size
+cli dev -a                 # Run all code checks
 ```
 
 ## ✨ Features
@@ -54,7 +57,8 @@ A clean, modular command-line interface demonstrating best practices in CLI deve
 ├── commandline/           # CLI implementation
 │   ├── commands/         # Subcommand modules
 │   │   ├── proj.py      # Project info commands
-│   │   └── dev.py       # Development tools
+│   │   ├── dev.py       # Development tools
+│   │   └-- next.py      # Your next commands here
 │   └── main.py          # CLI entry point
 ├── setup.sh             # One-command setup
 └── pyproject.toml       # Project configuration

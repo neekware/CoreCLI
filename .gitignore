@@ -39,8 +39,7 @@ models/
 .mypy_cache/
 .ruff_cache/
 
-# CLI executable (created by setup.sh in project root)
-/cli
+# CLI executable is installed in .venv/bin/cli
 
 # Keep .claude directory structure but ignore some files
 .claude/*

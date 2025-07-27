@@ -165,13 +165,15 @@ main() {
     
     echo
     log "Bootstrap complete!"
-    echo -e "${GREEN}To activate the environment:${NC} source $VENV_DIR/bin/activate"
-    echo -e "${GREEN}To test the setup:${NC}"
-    echo "  ./cli --help                        # Show help (auto-activates venv)"
-    echo "  ./cli --version                     # Show version"
-    echo "  cli --help                          # Show help (with venv activated)"
     echo
-    echo -e "${YELLOW}Remember to activate the environment first: source .venv/bin/activate${NC}"
+    echo -e "${GREEN}✅ Setup complete!${NC}"
+    echo
+    echo -e "${BLUE}To use the CLI:${NC}"
+    echo "  source .venv/bin/activate"
+    echo "  cli --help"
+    echo
+    echo -e "${YELLOW}💡 Pro tip: Add this to your ~/.bashrc or ~/.zshrc for auto-activation:${NC}"
+    echo "  cd $(pwd) && source .venv/bin/activate"
 }
 
 main "$@"
