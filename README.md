@@ -1,4 +1,6 @@
-# Shaypoor CLI
+# Core CLI
+
+A Python project starter that provides a production-ready CLI out of the box, letting you focus on your core logic instead of boilerplate.
 
 A clean, modular command-line interface demonstrating best practices in CLI development.
 
@@ -54,3 +56,11 @@ Pre-commit hooks run automatically on `git commit`.
 ## Architecture
 
 See [commandline/README.md](commandline/README.md) for detailed architecture documentation.
+
+## License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+---
+
+Developed by [Neekware Inc.](https://neekware.com)

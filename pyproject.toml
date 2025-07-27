@@ -3,9 +3,9 @@ requires = ["setuptools>=45", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "shaypoor-cli"
+name = "core-cli"
 version = "0.1.0"
-description = "CLI for Shaypoor TTS"
+description = "Core CLI - A modular command-line interface framework"
 authors = [
     {name = "Your Name", email = "you@example.com"}
 ]

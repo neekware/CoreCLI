@@ -1,6 +1,6 @@
 # CLI Architecture & Design Principles
 
-A well-designed command-line interface for the Shaypoor project, demonstrating best practices in CLI development.
+A well-designed command-line interface demonstrating best practices in CLI development with modular architecture.
 
 ## Architecture Overview
 

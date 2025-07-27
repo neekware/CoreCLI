@@ -13,7 +13,7 @@ def main() -> None:
     """Main CLI entry point"""
     parser = argparse.ArgumentParser(
         prog="cli",
-        description="CLI for Shaypoor",
+        description="Core CLI - A modular command-line interface",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:

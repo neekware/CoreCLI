@@ -1,5 +1,5 @@
 #!/bin/bash
-# Shaypoor Bootstrap Script
+# Core CLI Bootstrap Script
 # Sets up Python virtual environment and installs the cli
 
 set -e
@@ -87,7 +87,7 @@ create_venv() {
             log "Moving existing virtual environment to temp..."
             
             # Move to temp with unique name and remove in background
-            local temp_dir="/tmp/shaypoor-venv-$$-$(date +%s)"
+            local temp_dir="/tmp/corecli-venv-$$-$(date +%s)"
             mv "$VENV_DIR" "$temp_dir"
             
             # Remove in background
@@ -154,8 +154,8 @@ install_cli() {
 
 # Main execution
 main() {
-    echo -e "${BLUE}🚀 Shaypoor Bootstrap${NC}"
-    echo "Setting up Python environment for Shaypoor TTS..."
+    echo -e "${BLUE}🚀 Core CLI Bootstrap${NC}"
+    echo "Setting up Python environment for Core CLI..."
     echo
     
     check_python
