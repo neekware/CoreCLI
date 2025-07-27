@@ -1,0 +1,50 @@
+#!/bin/bash
+# cli - project root version (auto-setup and auto-activates venv)
+# This version is placed in project root and automatically handles environment setup
+
+# Get the project root (where this script is located)
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$SCRIPT_DIR"
+VENV_DIR="$PROJECT_ROOT/.venv"
+VENV_BIN_DIR="$VENV_DIR/bin"
+
+# Check if venv exists
+if [ ! -d "$VENV_DIR" ]; then
+    echo "Virtual environment not found. Running setup..." >&2
+    
+    # Run setup.sh with -y flag to auto-confirm
+    if [ -x "$PROJECT_ROOT/setup.sh" ]; then
+        "$PROJECT_ROOT/setup.sh" -y
+        
+        # Check if setup succeeded
+        if [ $? -ne 0 ]; then
+            echo "Error: Setup failed" >&2
+            exit 1
+        fi
+    else
+        echo "Error: setup.sh not found or not executable" >&2
+        exit 1
+    fi
+fi
+
+# Check if Python exists in venv
+if [ ! -x "$VENV_BIN_DIR/python" ]; then
+    echo "Error: Python not found in virtual environment" >&2
+    echo "Running setup.sh to fix..." >&2
+    "$PROJECT_ROOT/setup.sh" -y
+    
+    if [ ! -x "$VENV_BIN_DIR/python" ]; then
+        echo "Error: Setup failed to create working environment" >&2
+        exit 1
+    fi
+fi
+
+# If we're not already in the virtual environment, activate it and re-run
+if [ -z "$VIRTUAL_ENV" ] || [ "$VIRTUAL_ENV" != "$VENV_DIR" ]; then
+    # Source the activation script and re-execute this script with all arguments
+    exec /bin/bash -c "source '$VENV_DIR/bin/activate' && exec '$0' \"\$@\"" -- "$@"
+fi
+
+# Run the CLI directly - we're now in the activated venv
+cd "$PROJECT_ROOT"
+exec python -m commands.main "$@"
