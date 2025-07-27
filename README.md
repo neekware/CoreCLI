@@ -46,16 +46,6 @@ touch src/myproject/__init__.py
 # mycli = "commands.main:main"  # Instead of 'cli'
 ```
 
-### 🙏 Attribution
-
-If your project is public and you found CoreCLI helpful, we'd appreciate a mention:
-
-```markdown
-Built with [CoreCLI](https://github.com/neekware/CoreCLI) - A Python CLI starter template
-```
-
-Or simply add to your README:
-> This project was bootstrapped with [CoreCLI](https://github.com/neekware/CoreCLI)
 
 ### Project Layout
 
@@ -83,7 +73,6 @@ myproject/
 - [Getting Started](#-getting-started)
 - [Quick Start](#-quick-start)
 - [Features](#-features)
-- [Project Structure](#-project-structure)
 - [Development](#-development)
 - [Architecture](#-architecture)
 - [Versioning](#-versioning)
@@ -119,29 +108,6 @@ cli dev -a                 # Run all code checks
 - Python 3.9 or higher
 - Git (for pre-commit hooks)
 - Unix-like environment (Linux, macOS, WSL)
-
-## 📁 Project Structure
-
-```
-├── src/                 # Your business logic (empty, waiting for your code)
-│   └── .keepme         # Placeholder file with instructions
-├── commands/           # CLI implementation
-│   ├── subs/           # Subcommand modules
-│   │   ├── proj.py     # Project info commands
-│   │   ├── dev.py      # Development tools
-│   │   └-- next.py     # Your next commands here
-│   ├── main.py         # CLI entry point
-│   └── __version__.py  # Version management
-├── setup.sh            # One-command setup
-└── pyproject.toml      # Project configuration
-```
-
-### Adding Your Code
-
-1. **Business Logic**: Put your core application code in `src/yourproject/`
-2. **CLI Commands**: Create new command files in `commands/subs/`
-3. **Tests**: Add tests in `tests/` (create this directory)
-4. **Dependencies**: Add them to `pyproject.toml` under `dependencies`
 
 ## 🛠️ Development
 
@@ -188,6 +154,14 @@ The version is automatically used in:
 ## 📄 License
 
 MIT License - see [LICENSE](LICENSE) file for details.
+
+---
+
+### 🙏 Attribution
+
+If your project is public and you found CoreCLI helpful, we'd appreciate a mention like:
+> This project was bootstrapped with [CoreCLI](https://github.com/neekware/CoreCLI)
+
 
 ---
 
