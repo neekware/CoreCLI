@@ -165,4 +165,4 @@ If your project is public and you found CoreCLI helpful, we'd appreciate a menti
 
 ---
 
-Developed by [Val Neekman](https://github.com/un33k) @ [Neekware Inc.](https://neekware.com)
+Developed with ❤️ by [Val Neekman](https://github.com/un33k) @ [Neekware Inc.](https://neekware.com)
