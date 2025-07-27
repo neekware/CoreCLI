@@ -11,13 +11,82 @@ A Python project starter that provides a production-ready CLI out of the box, le
 
 A clean, modular command-line interface demonstrating best practices in CLI development.
 
+## 🎯 Getting Started
+
+### Use This as Your Project Template
+
+```bash
+# 1. Clone this repository
+git clone https://github.com/neekware/CoreCLI.git myproject
+cd myproject
+
+# 2. Remove the original git history
+rm -rf .git
+
+# 3. Initialize your own repository
+git init
+git add .
+git commit -m "Initial commit from CoreCLI template"
+
+# 4. Update project details
+# Edit pyproject.toml:
+#   - Change 'name' from "core-cli" to "myproject-cli"
+#   - Update description, authors, etc.
+
+# 5. Add your business logic to src/
+mkdir -p src/myproject
+touch src/myproject/__init__.py
+# Add your core functionality here
+
+# 6. Create CLI commands in commands/subs/
+# See commands/subs/proj.py and dev.py for examples
+
+# 7. Update the CLI name (optional)
+# In pyproject.toml [project.scripts], change:
+# mycli = "commands.main:main"  # Instead of 'cli'
+```
+
+### 🙏 Attribution
+
+If your project is public and you found CoreCLI helpful, we'd appreciate a mention:
+
+```markdown
+Built with [CoreCLI](https://github.com/neekware/CoreCLI) - A Python CLI starter template
+```
+
+Or simply add to your README:
+> This project was bootstrapped with [CoreCLI](https://github.com/neekware/CoreCLI)
+
+### Project Layout
+
+```
+myproject/
+├── src/                 # YOUR BUSINESS LOGIC GOES HERE
+│   └── myproject/      # Your Python package
+│       ├── __init__.py
+│       ├── core.py     # Core functionality
+│       ├── models.py   # Data models
+│       └── utils.py    # Utilities
+├── commands/           # CLI commands (keep these separate)
+│   ├── subs/          # Subcommand modules
+│   │   ├── proj.py    # Example: project commands
+│   │   ├── dev.py     # Example: dev tools
+│   │   └── myapp.py   # YOUR CLI COMMANDS GO HERE
+│   └── main.py        # CLI entry point (router)
+├── tests/             # Your tests
+├── setup.sh           # One-command setup
+└── pyproject.toml     # Project configuration
+```
+
 ## 📋 Table of Contents
 
+- [Getting Started](#-getting-started)
 - [Quick Start](#-quick-start)
 - [Features](#-features)
 - [Project Structure](#-project-structure)
 - [Development](#-development)
 - [Architecture](#-architecture)
+- [Versioning](#-versioning)
 - [License](#-license)
 
 ## 🚀 Quick Start
@@ -54,15 +123,25 @@ cli dev -a                 # Run all code checks
 ## 📁 Project Structure
 
 ```
-├── commands/            # CLI implementation
-│   ├── subs/            # Subcommand modules
-│   │   ├── proj.py      # Project info commands
-│   │   ├── dev.py       # Development tools
-│   │   └-- next.py      # Your next commands here
-│   └── main.py          # CLI entry point
-├── setup.sh             # One-command setup
-└── pyproject.toml       # Project configuration
+├── src/                 # Your business logic (empty, waiting for your code)
+│   └── .keepme         # Placeholder file with instructions
+├── commands/           # CLI implementation
+│   ├── subs/           # Subcommand modules
+│   │   ├── proj.py     # Project info commands
+│   │   ├── dev.py      # Development tools
+│   │   └-- next.py     # Your next commands here
+│   ├── main.py         # CLI entry point
+│   └── __version__.py  # Version management
+├── setup.sh            # One-command setup
+└── pyproject.toml      # Project configuration
 ```
+
+### Adding Your Code
+
+1. **Business Logic**: Put your core application code in `src/yourproject/`
+2. **CLI Commands**: Create new command files in `commands/subs/`
+3. **Tests**: Add tests in `tests/` (create this directory)
+4. **Dependencies**: Add them to `pyproject.toml` under `dependencies`
 
 ## 🛠️ Development
 
@@ -85,6 +164,26 @@ Pre-commit hooks run automatically on `git commit`.
 ## 🏗️ Architecture
 
 See [commands/README.md](commands/README.md) for detailed architecture documentation.
+
+## 📌 Versioning
+
+Version is managed in `commands/__version__.py`. To update:
+
+```python
+# commands/__version__.py
+__version__ = "1.0.0"  # Update this
+```
+
+Access version in your code:
+```python
+from commands import __version__
+print(f"Version: {__version__}")
+```
+
+The version is automatically used in:
+- `cli --version`
+- Package metadata
+- PyPI uploads (if you publish)
 
 ## 📄 License
 

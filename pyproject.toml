@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "core-cli"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Core CLI - A modular command-line interface framework"
 authors = [
     {name = "Your Name", email = "you@example.com"}
@@ -27,6 +27,9 @@ cli = "commands.main:main"
 
 [tool.setuptools]
 packages = ["commands"]
+
+[tool.setuptools.dynamic]
+version = {attr = "commands.__version__"}
 
 [tool.setuptools.package-data]
 commands = ["bin/*"]
