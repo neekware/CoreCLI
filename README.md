@@ -54,8 +54,8 @@ cli dev -a                 # Run all code checks
 ## 📁 Project Structure
 
 ```
-├── commandline/           # CLI implementation
-│   ├── commands/         # Subcommand modules
+├── commandline/         # CLI implementation
+│   ├── commands/        # Subcommand modules
 │   │   ├── proj.py      # Project info commands
 │   │   ├── dev.py       # Development tools
 │   │   └-- next.py      # Your next commands here
