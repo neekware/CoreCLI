@@ -141,11 +141,11 @@ install_cli() {
     log "Installing cli..."
     
     # Copy the wrapper script to venv
-    cp "$SCRIPT_DIR/commandline/bin/cli-venv" "$VENV_DIR/bin/cli"
+    cp "$SCRIPT_DIR/commands/bin/cli-venv" "$VENV_DIR/bin/cli"
     chmod +x "$VENV_DIR/bin/cli"
     
     # Install project root version (auto-activates)
-    cp "$SCRIPT_DIR/commandline/bin/cli-project" "$SCRIPT_DIR/cli"
+    cp "$SCRIPT_DIR/commands/bin/cli-project" "$SCRIPT_DIR/cli"
     chmod +x "$SCRIPT_DIR/cli"
     
     log "cli installed"

@@ -47,4 +47,4 @@ fi
 
 # Run the CLI directly - we're now in the activated venv
 cd "$PROJECT_ROOT"
-exec python -m commandline.main "$@"
+exec python -m commands.main "$@"

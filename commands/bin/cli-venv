@@ -47,4 +47,4 @@ fi
 
 # Use the venv's Python to run CLI as a module
 cd "$PROJECT_ROOT"
-exec "$VENV_BIN_DIR/python" -m commandline.main "$@"
+exec "$VENV_BIN_DIR/python" -m commands.main "$@"

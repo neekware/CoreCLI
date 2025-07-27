@@ -12,9 +12,9 @@ graph TD
     C --> E[dev command]
     C --> G[future commands]
     
-    D --> F[commands/proj.py]
-    E --> H[commands/dev.py]
-    G --> I[commands/xyz.py]
+    D --> F[subs/proj.py]
+    E --> H[subs/dev.py]
+    G --> I[subs/xyz.py]
     
     F --> J["--size/-s (common)"]
     F --> K["--info/-i (common)"]
@@ -49,10 +49,10 @@ Each subcommand lives in its own module under `commands/`. This ensures:
 - **Testability**: Each command can be tested in isolation
 
 ```
-commandline/
+commands/
 ├── __init__.py
 ├── main.py              # Entry point & router
-└── commands/
+└── subs/
     ├── __init__.py
     ├── proj.py          # Project-related commands
     ├── dev.py           # Development tools
@@ -126,9 +126,9 @@ cli proj -s -i          # Size and info together
 
 ## Adding New Commands
 
-### 1. Create new module in `commands/`:
+### 1. Create new module in `subs/`:
 ```python
-# commands/newcmd.py
+# subs/newcmd.py
 class NewCommands:
     def __init__(self, project_root: Path):
         self.project_root = project_root

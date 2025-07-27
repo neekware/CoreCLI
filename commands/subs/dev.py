@@ -78,8 +78,8 @@ class DevCommands:
         """Run mypy type checker"""
         print("Type checking code...")
 
-        # Run mypy on the commandline package
-        cmd = ["mypy", "commandline"]
+        # Run mypy on the commands package
+        cmd = ["mypy", "commands"]
         success, output = self.run_command(cmd, "mypy")
 
         if success:

@@ -5,8 +5,8 @@ import argparse
 from pathlib import Path
 
 from . import __version__
-from .commands.dev import DevCommands
-from .commands.proj import ProjectCommands
+from .subs.dev import DevCommands
+from .subs.proj import ProjectCommands
 
 
 def main() -> None:

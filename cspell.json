@@ -13,7 +13,7 @@
     "argparse",
     "subparser",
     "subparsers",
-    "commandline",
+    "commands",
     "pytest",
     "setuptools",
     "pycodestyle",

@@ -34,7 +34,7 @@ python some_script.py  # Don't do this! (Unless one-off, debugging)
 ## Development Guidelines
 
 1. The CLI follows modular architecture with subcommands
-2. Each command group lives in its own module under `commandline/commands/`
+2. Each command group lives in its own module under `commands/subs/`
 3. All code must pass black formatting, ruff linting, and mypy type checking
 4. Pre-commit hooks enforce code quality standards
 
@@ -128,7 +128,7 @@ Every function, method, and variable should have proper type hints. This include
 
 ## Project Structure
 
-- `commandline/` - Python CLI implementation
+- `commands/` - Python CLI implementation
   - `commands/` - Subcommand modules
   - `main.py` - CLI entry point
 - `setup.sh` - Sets up Python environment and CLI

@@ -54,8 +54,8 @@ cli dev -a                 # Run all code checks
 ## 📁 Project Structure
 
 ```
-├── commandline/         # CLI implementation
-│   ├── commands/        # Subcommand modules
+├── commands/            # CLI implementation
+│   ├── subs/            # Subcommand modules
 │   │   ├── proj.py      # Project info commands
 │   │   ├── dev.py       # Development tools
 │   │   └-- next.py      # Your next commands here
@@ -84,7 +84,7 @@ Pre-commit hooks run automatically on `git commit`.
 
 ## 🏗️ Architecture
 
-See [commandline/README.md](commandline/README.md) for detailed architecture documentation.
+See [commands/README.md](commands/README.md) for detailed architecture documentation.
 
 ## 📄 License
 
