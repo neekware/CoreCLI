@@ -4,6 +4,8 @@ from typing import Optional
 
 import click
 
+__all__ = ["release"]
+
 
 @click.group()
 def release() -> None:

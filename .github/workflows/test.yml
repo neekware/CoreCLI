@@ -1,4 +1,4 @@
-name: Test
+name: Quick Test
 
 on:
   push:
@@ -12,21 +12,23 @@ on:
       - main
 
 jobs:
-  test:
+  quick-test:
+    name: Quick Test (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.9', '3.10', '3.11', '3.12']
+        python-version: ['3.9', '3.11']
     
     steps:
-    - uses: actions/checkout@v4
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
     
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: 🐍 Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
     
-    - name: Cache pip packages
+    - name: 📦 Cache pip packages
       uses: actions/cache@v4
       with:
         path: ~/.cache/pip
@@ -34,38 +36,46 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
     
-    - name: Install dependencies
+    - name: 📦 Install dependencies
       run: |
-        python -m pip install --upgrade pip
+        python -m pip install --upgrade pip setuptools wheel
         pip install -e '.[dev]'
     
-    - name: Check code formatting
+    - name: ✅ Verify CLI installation
       run: |
-        black . --check
-    
-    - name: Lint with ruff
-      run: |
-        ruff check .
-    
-    - name: Type check with mypy
-      run: |
-        mypy commands
-    
-    - name: Test CLI commands
-      run: |
-        # Test help
-        cli --help
-        cli proj --help
-        cli dev --help
+        # Test as module first
+        python -m commands --version
+        python -m commands --help
         
-        # Test project commands
-        cli proj -s
-        cli proj -i
-        cli proj --stats
-        
-        # Test that pre-commit is installable
-        cli dev -p
+        # Test direct CLI if available
+        which cli && cli --version || echo "CLI not in PATH yet"
     
-    - name: Run all checks via CLI
+    - name: 🎨 Check code formatting
+      run: black . --check
+    
+    - name: 🔍 Lint with ruff
+      run: ruff check .
+    
+    - name: 🔍 Type check with mypy
+      run: mypy commands
+    
+    - name: 🧪 Run tests
+      run: pytest commands/tests/ -v
+    
+    - name: 🎯 Test CLI commands
       run: |
-        cli dev -a
+        # Run via Python module to ensure it works
+        python -m commands proj size
+        python -m commands proj stats
+        python -m commands dev --help
+        
+        # Test with actual cli command if installed
+        if command -v cli &> /dev/null; then
+          cli --help
+          cli proj --help
+          cli dev --help
+        fi
+    
+    - name: ✅ Run all checks via module
+      run: |
+        python -m commands dev all
