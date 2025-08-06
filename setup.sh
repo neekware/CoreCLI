@@ -152,30 +152,42 @@ install_cli() {
 
     log "cli installed to venv"
 
-    # Generate completion script
+    # Generate completion script (optional, may fail in CI)
     log "Generating shell completion..."
+    
+    # Ensure autogen directory exists
+    mkdir -p "$SCRIPT_DIR/commands/autogen"
 
-    # Generate completion directly via Python
-    "$VENV_DIR/bin/python" -c "
+    # Try to generate completion, but don't fail if it doesn't work
+    if "$VENV_DIR/bin/python" -c "
 from pathlib import Path
 import sys
 sys.path.insert(0, '$SCRIPT_DIR')
-from commands.utils.completion import generate_completion_script, get_command_info
-from commands.main import cli
-
-completion_path = Path('$SCRIPT_DIR/commands/autogen/completion.sh')
-cli_info = get_command_info(cli)
-completion_script = generate_completion_script(cli_info)
-
-# Add completion loaded marker
-completion_script = completion_script.replace(
-    '# Auto-generated completion script for ehAye™ Core CLI',
-    '# Auto-generated completion script for ehAye™ Core CLI\nexport _ehaye_cli_completions_loaded=1'
-)
-
-completion_path.write_text(completion_script)
-print(f'✓ Generated {completion_path}')
-" 2>/dev/null
+try:
+    from commands.utils.completion import generate_completion_script, get_command_info
+    from commands.main import cli
+    
+    completion_path = Path('$SCRIPT_DIR/commands/autogen/completion.sh')
+    completion_path.parent.mkdir(parents=True, exist_ok=True)
+    cli_info = get_command_info(cli)
+    completion_script = generate_completion_script(cli_info)
+    
+    # Add completion loaded marker
+    completion_script = completion_script.replace(
+        '# Auto-generated completion script for ehAye™ Core CLI',
+        '# Auto-generated completion script for ehAye™ Core CLI\\nexport _ehaye_cli_completions_loaded=1'
+    )
+    
+    completion_path.write_text(completion_script)
+    print(f'✓ Generated {completion_path}')
+except Exception as e:
+    print(f'⚠ Could not generate completion: {e}')
+    sys.exit(1)
+" 2>/dev/null; then
+        log "Shell completion generated"
+    else
+        warn "Could not generate shell completion (this is normal in CI)"
+    fi
 
     # Add completion sourcing to activate script
     if [[ -f "$SCRIPT_DIR/commands/completion.sh" ]]; then
