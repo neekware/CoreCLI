@@ -34,7 +34,7 @@ jobs:
         pip install -r tools/requirements.txt
         
         # Verify installation
-        python -c "from commands.subs import build; print('Import successful')"
+        python -c "from commands.subs.build import build; print('Import successful')"
         
         # Run tests
         black . --check
