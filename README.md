@@ -1,6 +1,8 @@
+<div align="center">
+
 # 🚀 ehAye™ Core CLI
 
-<div align="center">
+<img src="assets/ehAye.png" alt="ehAye Logo" width="300" />
 
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -473,6 +475,8 @@ If you find ehAye™ Core CLI helpful, we'd appreciate a mention:
 [Get Started Now](#-quick-start) • [Star on GitHub](https://github.com/neekware/ehAyeCoreCLI) • [Report an Issue](https://github.com/neekware/ehAyeCoreCLI/issues)
 
 <br>
+
+**Built with Python 🐍**
 
 Developed with ❤️ by [Val Neekman](https://github.com/un33k) @ [Neekware Inc.](https://neekware.com)
 

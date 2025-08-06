@@ -1,0 +1,43 @@
+name: Minimal Check
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  quick-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+    
+    - name: Cache pip packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-minimal-${{ hashFiles('tools/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-minimal-
+    
+    - name: Setup and run checks
+      run: |
+        # Quick setup and check
+        ./setup.sh -y
+        source .venv/bin/activate
+        
+        # Run all dev checks at once
+        cli dev all
+        
+        # Verify CLI works
+        cli --version
+        cli proj size
+        cli build --help

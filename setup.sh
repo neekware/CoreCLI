@@ -134,10 +134,12 @@ install_deps() {
 
     log "Dependencies installed successfully"
 
-    # Install pre-commit hooks
-    log "Installing pre-commit hooks..."
-    pre-commit install >/dev/null 2>&1
-    log "Pre-commit hooks installed"
+    # Install pre-commit hooks (only if in a git repo)
+    if [[ -d ".git" ]]; then
+        log "Installing pre-commit hooks..."
+        pre-commit install >/dev/null 2>&1 || warn "Could not install pre-commit hooks (not a git repo?)"
+        log "Pre-commit hooks installed"
+    fi
 }
 
 # Install cli
