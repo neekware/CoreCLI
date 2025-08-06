@@ -45,6 +45,36 @@ if [ "$VIRTUAL_ENV" != "$VENV_DIR" ]; then
     exit 1
 fi
 
+# Check if we're in the project root directory
+CURRENT_DIR="$(pwd)"
+if [ "$CURRENT_DIR" != "$PROJECT_ROOT" ]; then
+    echo "cli ($PROJECT_NAME)" >&2
+    echo "Error: Unauthorized execution path" >&2
+    echo "" >&2
+    echo "CLI is designed to run from the root of the project where ./setup.sh was invoked." >&2
+    echo "" >&2
+    echo "Expected directory: $PROJECT_ROOT" >&2
+    echo "Current directory: $CURRENT_DIR" >&2
+    echo "" >&2
+    
+    # Check if current directory looks like a moved/renamed project
+    if [ -f "$CURRENT_DIR/setup.sh" ] && [ -d "$CURRENT_DIR/commands" ] && [ -f "$CURRENT_DIR/pyproject.toml" ]; then
+        echo "⚠️  It appears this project was moved or renamed." >&2
+        echo "" >&2
+        echo "The virtual environment is still linked to the old location." >&2
+        echo "To fix this, please run:" >&2
+        echo "" >&2
+        echo "  ./setup.sh" >&2
+        echo "" >&2
+        echo "This will reconfigure the CLI for the new location." >&2
+    else
+        echo "Please go to: $PROJECT_ROOT" >&2
+        echo "" >&2
+        echo "If you have copied or renamed the original project directory, please run ./setup.sh" >&2
+        echo "in the new location to reconfigure the CLI." >&2
+    fi
+    exit 1
+fi
+
 # Use the venv's Python to run CLI as a module
-cd "$PROJECT_ROOT"
 exec "$VENV_BIN_DIR/python" -m commands.main "$@"

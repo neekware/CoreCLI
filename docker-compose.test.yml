@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  test-py39:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+      args:
+        PYTHON_VERSION: "3.9-slim"
+    image: ehaye-cli-test:py39
+    container_name: ehaye-cli-test-py39
+    command: |
+      bash -c "
+        echo '=== Python 3.9 Test ==='
+        python --version
+        cli --version
+        cli dev all
+      "
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  test-py311:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+      args:
+        PYTHON_VERSION: "3.11-slim"
+    image: ehaye-cli-test:py311
+    container_name: ehaye-cli-test-py311
+    command: |
+      bash -c "
+        echo '=== Python 3.11 Test ==='
+        python --version
+        cli --version
+        cli dev all
+      "
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  test-py313:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+      args:
+        PYTHON_VERSION: "3.13-slim"
+    image: ehaye-cli-test:py313
+    container_name: ehaye-cli-test-py313
+    command: |
+      bash -c "
+        echo '=== Python 3.13 Test ==='
+        python --version
+        cli --version
+        cli dev all
+      "
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  # Quick test - just run the CLI
+  quick-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    image: ehaye-cli-test:latest
+    container_name: ehaye-cli-quick-test
+    command: |
+      bash -c "
+        echo '=== Quick CLI Test ==='
+        cli --help
+        cli proj size
+        cli proj stats
+        cli dev --help
+        cli build --help
+        cli package --help
+        cli release --help
+        echo '✅ All commands work!'
+      "
+    environment:
+      - PYTHONUNBUFFERED=1

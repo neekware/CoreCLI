@@ -1,164 +1,160 @@
-# CLAUDE.md - Project-Specific Instructions for Claude
+# CLAUDE.md - Project-Specific Instructions for ehAye™ Core CLI
 
-## Python Environment Activation Rule
+## Quick Start
+
 ```bash
-# Setup python env in .venv
+# Initial setup
 ./setup.sh
-```
 
-**IMPORTANT**: Always activate the local virtual environment before running any Python scripts or commands:
-
-```bash
+# Activate environment (required before using CLI)
 source .venv/bin/activate
+
+# Use the CLI
+cli --help
 ```
 
-## CLI Usage Rule
+## CLI Commands Reference
 
-All Python functionality must go through our CLI interface. Do not EVER run Python scripts directly. Use the `cli` command instead:
+### Development Tools (`cli dev`)
+- `cli dev format` - Format code with Black
+- `cli dev lint` - Lint with Ruff
+- `cli dev typecheck` - Type check with MyPy
+- `cli dev test` - Run tests with pytest
+- `cli dev all` - Run all checks
+- `cli dev precommit` - Run pre-commit hooks
 
-```bash
-# Good - using the CLI
-cli proj -s                  # Show repository size
-cli dev -a                   # Run all checks
+### Project Management (`cli proj`)
+- `cli proj info` - Show git status and project info
+- `cli proj size` - Show repository size
+- `cli proj stats` - Show detailed statistics
 
-# Bad - running Python directly
-python some_script.py  # Don't do this! (Unless one-off, debugging)
-```
+### Build Commands (`cli build`)
+- `cli build all` - Build all targets (placeholder)
+- `cli build clean` - Clean build artifacts (placeholder)
+- `cli build component` - Build specific component (placeholder)
 
-## Available CLI Commands
+### Package Commands (`cli package`)
+- `cli package build` - Build packages (placeholder)
+- `cli package dist` - Distribute packages (placeholder)
+- `cli package list` - List packages (placeholder)
 
-- `cli proj` - Project information and statistics
-- `cli dev` - Development tools (lint, format, type check)
-- `cli --help` - Show all available commands
+### Release Commands (`cli release`)
+- `cli release create` - Create releases (placeholder)
+- `cli release publish` - Publish releases (placeholder)
+- `cli release list` - List releases (placeholder)
 
-## Development Guidelines
+## Development Rules
 
-1. The CLI follows modular architecture with subcommands
-2. Each command group lives in its own module under `commands/subs/`
-3. All code must pass black formatting, ruff linting, and mypy type checking
-4. Pre-commit hooks enforce code quality standards
-
-## Clean Architecture Principles
-
-**ALWAYS follow these architectural principles:**
-
-### 1. Separation of Concerns
-- Each module should have ONE clear responsibility
-- Don't mix business logic with presentation logic
-- Keep command parsing separate from command execution
-
-### 2. Layered Architecture
-```
-CLI Layer (main.py)
-    ↓
-Command Layer (commands/*.py)
-    ↓
-Business Logic Layer
-    ↓
-External Services/Tools
-```
-
-### 3. Before Creating New Files
-**STOP and ask:**
-1. Does this functionality belong in an existing module?
-2. Can I extend an existing class instead of creating a new one?
-3. Is this following the established patterns?
-
-Example:
-```python
-# Before creating commands/new_feature.py, consider:
-# - Could this be a new method in proj.py?
-# - Is it truly a separate concern?
-# - Does it warrant its own command group?
-```
-
-### 4. Design Right First Time
-- Think about the interface before implementation
-- Consider future extensibility
-- Write code that's easy to delete, not easy to extend
-- Prefer composition over inheritance
-
-## Git Safety Rules
-
-**NEVER run these commands without explicit user confirmation:**
-
-```bash
-# Dangerous commands - ALWAYS ask first:
-git reset --hard
-git push --force
-git clean -xdf
-git checkout .  # (when it would discard changes)
-rm -rf
-```
-
-**ALWAYS ask before:**
-- Creating any git commit
-- Pushing to remote
-- Any destructive git operation
-- Modifying git history
-
-Example interaction:
-```
-Claude: "I've made the changes. Should I create a commit with the message 'Add type annotations to all modules'?"
-User: "Yes, go ahead"
-Claude: *only then runs git commit*
-```
-
-## Python Type Annotations Rule
-
-**ALWAYS use type annotations in all Python code**. This project enforces strict typing with mypy.
-
+### Python Type Annotations (Required)
 ```python
 # Good - with type annotations
+from typing import Dict, List, Optional
+from pathlib import Path
+
 def process_data(input_file: Path, max_size: int = 100) -> Dict[str, Any]:
     results: List[str] = []
     ...
 
 # Bad - missing type annotations
 def process_data(input_file, max_size=100):  # Don't do this!
-    results = []
     ...
 ```
 
-Every function, method, and variable should have proper type hints. This includes:
-- Function parameters and return types
-- Class attributes
-- Variable annotations where type inference isn't clear
-- Using `from typing import ...` for complex types
+### Code Quality Standards
+- All code must pass `black` formatting
+- All code must pass `ruff` linting
+- All code must pass `mypy` type checking
+- Pre-commit hooks enforce these standards automatically
 
-## Project Structure
+### Architecture Principles
 
-- `commands/` - Python CLI implementation
-  - `commands/` - Subcommand modules
-  - `main.py` - CLI entry point
-- `setup.sh` - Sets up Python environment and CLI
-- `pyproject.toml` - Project configuration and tool settings
+1. **Modular Design**: Each command group in `commands/subs/`
+2. **Separation of Concerns**: One responsibility per module
+3. **Clean Interfaces**: Commands handle CLI, logic separate
+4. **Type Safety**: Full type annotations everywhere
 
-## Visual Accessibility Guidclines for Mermaid Diagrams
+## Git Safety Rules
 
-When creating Mermaid diagrams, graphs, or charts, ALWAYS ensure:
+**ALWAYS ask before:**
+- Creating commits
+- Pushing to remote
+- Any destructive operations
+- Modifying history
 
-1. **High contrast** between background and text (WCAG AA minimum 4.5:1)
-2. **Avoid problematic color combinations**:
+**NEVER run without permission:**
+- `git reset --hard`
+- `git push --force`
+- `git clean -xdf`
+- `rm -rf`
 
-   - Never use red/green together (colorblind unfriendly)
-   - No light colors on white backgrounds
-   - No dark colors on black backgrounds
+## Project Customization
 
-3. **Use these accessible color schemes**:
+To customize this template for your project:
 
-   - Success/Done: `#2E7D32` (dark green) on white or `#C8E6C9` (light green) with black text
-   - Warning/In Progress: `#F57C00` (dark orange) on white or `#FFE0B2` (light orange) with black text
-   - Error/Todo: `#C62828` (dark red) on white or `#FFCDD2` (light red) with black text
-   - Info: `#1565C0` (dark blue) on white or `#BBDEFB` (light blue) with black text
+1. Edit `commands/config.py`:
+   ```python
+   PROJECT_NAME = "YourProject"  # Your project name
+   PROJECT_DESCRIPTION = "Your description"
+   ```
 
-4. **Include text labels** in addition to colors
-5. **Use patterns or icons** as secondary indicators when possible
+2. Update `commands/__init__.py` for version:
+   ```python
+   __version__ = "1.0.0"  # Your version
+   ```
 
-Example for Mermaid:
+3. Modify placeholder commands in `commands/subs/` as needed
 
-```mermaid
-graph TD
-    A[Start - #BBDEFB with black text] -->|Good contrast| B[Process - #C8E6C9 with black text]
-    B --> C[End - #FFE0B2 with black text]
+## Visual Accessibility Guidelines
+
+When creating diagrams or visualizations:
+
+### Color Schemes
+- **Success**: `#2E7D32` (dark green) or `#C8E6C9` (light green with black text)
+- **Warning**: `#F57C00` (dark orange) or `#FFE0B2` (light orange with black text)
+- **Error**: `#C62828` (dark red) or `#FFCDD2` (light red with black text)
+- **Info**: `#1565C0` (dark blue) or `#BBDEFB` (light blue with black text)
+
+### Requirements
+- Minimum contrast ratio 4.5:1 (WCAG AA)
+- Avoid red/green combinations
+- Include text labels with colors
+- Use patterns as secondary indicators
+
+## Testing
+
+```bash
+# Run all tests
+cli dev test
+
+# Run specific test file
+pytest commands/tests/test_main.py
+
+# Run with coverage
+pytest --cov=commands
+```
+
+## Pre-commit Hooks
+
+Pre-commit hooks run automatically on `git commit`. To run manually:
+
+```bash
+cli dev precommit        # Check staged files
+cli dev precommit --fix  # Auto-fix issues
+cli dev precommit --ci   # Check all files
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Import errors**: Ensure virtual environment is activated
+2. **Command not found**: Run `./setup.sh` and activate venv
+3. **Type errors**: Run `cli dev typecheck` to identify issues
+4. **Format issues**: Run `cli dev format` to auto-fix
+
+### Debug Mode
+
+Run any command with `--debug` for verbose output:
+```bash
+cli --debug [command]
 ```

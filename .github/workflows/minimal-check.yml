@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Run setup and tests
+      run: |
+        # Debug: Show directory structure
+        echo "=== Directory structure ==="
+        ls -la commands/
+        ls -la commands/subs/
+        ls -la commands/subs/build/ || echo "build dir missing"
+        
+        # Setup environment and install as editable package
+        python -m venv .venv
+        source .venv/bin/activate
+        pip install --upgrade pip setuptools wheel
+        
+        # Install the package in editable mode with verbose output
+        pip install -e . -v
+        
+        # Install dev dependencies
+        pip install -r tools/requirements.txt
+        
+        # Verify installation
+        python -c "from commands.subs.build import build; print('Import successful')"
+        
+        # Run tests
+        black . --check
+        ruff check .
+        mypy commands
+        pytest

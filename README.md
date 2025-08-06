@@ -1,107 +1,461 @@
-# Core CLI
+<div align="center">
 
-[![CI](https://github.com/neekware/CoreCLI/actions/workflows/test.yml/badge.svg)](https://github.com/neekware/CoreCLI/actions/workflows/test.yml)
+# 🚀 ehAye™ Core CLI
+
+<img src="assets/ehAye.png" alt="ehAye Logo" width="300" />
+
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Linting: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Type Checked: mypy](https://img.shields.io/badge/type%20checked-mypy-blue)](https://github.com/python/mypy)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
-A Python project starter that provides a production-ready CLI out of the box, letting you focus on your core logic instead of boilerplate.
+### **🎓 The Best CLI Framework for AI Developers, Researchers & Students**
 
-A clean, modular command-line interface demonstrating best practices in CLI development.
+**We handle your build environment, so you can focus on your core responsibility.**
 
-## 🎯 Getting Started
+Stop wrestling with boilerplate. Start shipping features. ehAye™ Core CLI is the production-ready foundation that lets AI developers, researchers, and students concentrate on what matters: **their actual project**.
 
-### Use This as Your Project Template
+[Quick Start](#-quick-start) • [Features](#-features) • [Architecture](#-architecture) • [Commands](#-command-showcase) • [Documentation](#-documentation)
 
+</div>
+
+---
+
+## 🎯 Why ehAye™ Core CLI?
+
+### 🎓 Perfect for ALL Developers
+
+**Tired of juggling build tools?** Whether you're developing in C/C++, Rust, TypeScript, Python, or any language - let ehAye™ Core CLI be your universal command center.
+
+**No more:**
+- ❌ `npm run dev`, `npm run build`, `npm run test` confusion
+- ❌ Makefiles scattered everywhere with cryptic targets
+- ❌ Bash scripts you wrote 6 months ago and can't debug
+- ❌ Different commands for every project
+- ❌ "Wait, how do I build this again?"
+
+**Just ONE consistent interface:**
 ```bash
-# 1. Clone this repository
-git clone https://github.com/neekware/CoreCLI.git myproject
-cd myproject
-
-# 2. Remove the original git history
-rm -rf .git
-
-# 3. Initialize your own repository
-git init
-git add .
-git commit -m "Initial commit from CoreCLI template"
-
-# 4. Update project details
-# Edit pyproject.toml:
-#   - Change 'name' from "core-cli" to "myproject-cli"
-#   - Update description, authors, etc.
-
-# 5. Add your business logic to src/
-mkdir -p src/myproject
-touch src/myproject/__init__.py
-# Add your core functionality here
-
-# 6. Create CLI commands in commands/subs/
-# See commands/subs/proj.py and dev.py for examples
-
-# 7. Update the CLI name (optional)
-# In pyproject.toml [project.scripts], change:
-# mycli = "commands.main:main"  # Instead of 'cli'
+cli build all      # Build your C++, Rust, TypeScript - anything!
+cli test          # Run tests for ANY language
+cli dev all       # Format, lint, typecheck - universal
+cli release       # Ship it, no matter what "it" is
 ```
 
+### 🚀 For AI Developers & Researchers
 
-### Project Layout
+Whether you're building ML pipelines, research tools, or data processing utilities, stop wasting time on CLI infrastructure.
 
-```
-myproject/
-├── src/                 # YOUR BUSINESS LOGIC GOES HERE
-│   └── myproject/      # Your Python package
-│       ├── __init__.py
-│       ├── core.py     # Core functionality
-│       ├── models.py   # Data models
-│       └── utils.py    # Utilities
-├── commands/           # CLI commands (keep these separate)
-│   ├── subs/          # Subcommand modules
-│   │   ├── proj.py    # Example: project commands
-│   │   ├── dev.py     # Example: dev tools
-│   │   └── myapp.py   # YOUR CLI COMMANDS GO HERE
-│   └── main.py        # CLI entry point (router)
-├── tests/             # Your tests
-├── setup.sh           # One-command setup
-└── pyproject.toml     # Project configuration
-```
+ehAye™ Core CLI is a **batteries-included CLI template** that provides:
 
-## 📋 Table of Contents
-
-- [Getting Started](#-getting-started)
-- [Quick Start](#-quick-start)
-- [Features](#-features)
-- [Development](#-development)
-- [Architecture](#-architecture)
-- [Versioning](#-versioning)
-- [License](#-license)
+- ✅ **Universal Build System** - One CLI to rule them all (C++, Rust, Python, JS, anything!)
+- ✅ **Zero Configuration** - Works instantly, no setup headaches
+- ✅ **Production Ready** - Type-safe, tested, documented from day one
+- ✅ **Best Practices Built-In** - Linting, formatting, testing - all configured
+- ✅ **Language Agnostic** - Wrap ANY build tool, ANY language, ONE interface
+- ✅ **Focus on Your Code** - We handle the DevOps, you handle the innovation
 
 ## 🚀 Quick Start
 
-```bash
-# Setup (installs dependencies and pre-commit hooks)
-./setup.sh
+Get up and running in less than 60 seconds:
 
-# Activate the virtual environment
+```bash
+# 1. Clone the template
+git clone https://github.com/neekware/ehAyeCoreCLI.git my-awesome-cli
+cd my-awesome-cli
+
+# 2. Customize your project (edit commands/config.py)
+# Set PROJECT_NAME = "MyAwesomeCLI"
+
+# 3. Setup and activate
+./setup.sh
 source .venv/bin/activate
 
-# Now use 'cli' directly
+# 4. Start using your CLI!
 cli --help
-cli proj -s                # Show repository size
-cli dev -a                 # Run all code checks
+cli proj info
+cli dev all
 ```
+
+That's it! You now have a fully functional CLI with development tools, testing, and documentation.
+
+## 💡 Developer Experience Features
+
+### 🔮 Intelligent Command Completion
+
+**Never remember command flags again!** Full bash/zsh/fish completion that actually works:
+
+```bash
+cli bu<TAB>            # → cli build
+cli build --<TAB>      # Shows ALL available options
+cli dev t<TAB>         # → cli dev test, cli dev typecheck
+```
+
+- **Auto-discovers** all your commands and options
+- **Context-aware** suggestions based on what you're typing
+- **Works everywhere** - bash, zsh, fish, even in SSH sessions
+- **Zero config** - installs automatically with `./setup.sh`
+
+### 🤖 CI/CD Ready - Non-Interactive by Design
+
+**GitHub Actions? Jenkins? GitLab CI?** We've got you covered:
+
+```yaml
+# That's it. No complex setup. It just works.
+- run: |
+    ./setup.sh -y        # Non-interactive mode
+    source .venv/bin/activate
+    cli dev all          # Run all checks
+    cli build --all      # Build everything
+    cli test             # Test everything
+```
+
+- **Exit codes that make sense** - 0 for success, non-zero for any failure
+- **Structured output** - Parse-friendly for your CI pipelines
+- **Quiet modes** - `--quiet` for minimal output, `--verbose` for debugging
+- **No interactive prompts** - Everything can be automated
+- **Docker-friendly** - Works perfectly in containers
+
+### 🔄 Universal Command Interface
+
+**One CLI, Any Language, Any Tool:**
+
+```bash
+# Instead of remembering:
+# make build && npm run build && cargo build && go build
+# Just:
+cli build all
+
+# Instead of:
+# pytest && npm test && cargo test && go test
+# Just:
+cli test
+
+# Instead of:
+# black . && ruff check && prettier --write && cargo fmt
+# Just:
+cli dev format
+```
+
+Your team will thank you. Your future self will thank you.
+
+## 🏗️ Architecture
+
+<div align="center">
+
+```mermaid
+flowchart TB
+    subgraph YourFocus["🎯 YOUR FOCUS AREA"]
+        direction TB
+        A[fa:fa-brain Your Ideas]
+        B[fa:fa-code Your Core Logic]
+        C[fa:fa-flask Your Research]
+        D[fa:fa-robot Your AI Models]
+        A --> B
+        C --> B
+        D --> B
+    end
+
+    B ==>|Just Write Code| CLI[fa:fa-terminal ehAye™ Core CLI Framework]
+
+    subgraph Infrastructure["🔧 WE HANDLE ALL THIS"]
+        direction TB
+
+        subgraph DevTools["🛠️ Development Tools"]
+            DT1[fa:fa-paint-brush Black<br/>Auto-formatting]
+            DT2[fa:fa-search Ruff<br/>Fast Linting]
+            DT3[fa:fa-shield MyPy<br/>Type Safety]
+            DT4[fa:fa-check-circle Pytest<br/>Testing Suite]
+            DT5[fa:fa-code-branch Pre-commit<br/>Git Hooks]
+            DT6[fa:fa-terminal Shell<br/>Completion]
+        end
+
+        subgraph BuildSys["📦 Build System"]
+            BS1[fa:fa-linux Linux<br/>Builds]
+            BS2[fa:fa-apple macOS<br/>Builds]
+            BS3[fa:fa-windows Windows<br/>Builds]
+            BS4[fa:fa-microchip ARM64<br/>Support]
+            BS5[fa:fa-desktop x86_64<br/>Support]
+            BS6[fa:fa-bug Debug<br/>Builds]
+        end
+
+        subgraph Package["📚 Package Management"]
+            PK1[fa:fa-box Wheel<br/>Creation]
+            PK2[fa:fa-upload PyPI<br/>Publishing]
+            PK3[fa:fa-download Dependency<br/>Resolution]
+            PK4[fa:fa-archive Source<br/>Distribution]
+            PK5[fa:fa-certificate Package<br/>Signing]
+            PK6[fa:fa-check Verification]
+        end
+
+        subgraph Release["🚀 Release Automation"]
+            RL1[fa:fa-tag Version<br/>Tagging]
+            RL2[fa:fa-github GitHub<br/>Releases]
+            RL3[fa:fa-docker Docker<br/>Images]
+            RL4[fa:fa-file-text Changelog<br/>Generation]
+            RL5[fa:fa-cloud CI/CD<br/>Pipeline]
+            RL6[fa:fa-bell Notifications]
+        end
+
+        subgraph Quality["✅ Quality Assurance"]
+            QA1[fa:fa-microscope Code<br/>Coverage]
+            QA2[fa:fa-shield-alt Security<br/>Scanning]
+            QA3[fa:fa-chart-line Performance<br/>Metrics]
+            QA4[fa:fa-book Documentation<br/>Check]
+            QA5[fa:fa-sync Integration<br/>Tests]
+            QA6[fa:fa-globe Cross-platform<br/>Tests]
+        end
+    end
+
+    CLI --> DevTools
+    CLI --> BuildSys
+    CLI --> Package
+    CLI --> Release
+    CLI --> Quality
+
+    subgraph Commands["💻 CLI COMMANDS"]
+        direction LR
+        CMD1[cli dev all]
+        CMD2[cli build --target]
+        CMD3[cli package dist]
+        CMD4[cli release create]
+        CMD5[cli proj stats]
+    end
+
+    DevTools -.-> CMD1
+    BuildSys -.-> CMD2
+    Package -.-> CMD3
+    Release -.-> CMD4
+    Quality -.-> CMD5
+
+    style YourFocus fill:#C8E6C9,stroke:#2E7D32,stroke-width:4px,color:#000
+    style Infrastructure fill:#FFF3E0,stroke:#F57C00,stroke-width:2px,color:#000
+    style CLI fill:#BBDEFB,stroke:#1565C0,stroke-width:3px,color:#000
+    style DevTools fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
+    style BuildSys fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
+    style Package fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
+    style Release fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
+    style Quality fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
+    style Commands fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#000
+
+    classDef focus fill:#C8E6C9,stroke:#2E7D32,stroke-width:3px,color:#000
+    classDef framework fill:#BBDEFB,stroke:#1565C0,stroke-width:2px,color:#000
+    classDef tool fill:#FFF3E0,stroke:#F57C00,stroke-width:1px,color:#000
+    classDef command fill:#E8F5E9,stroke:#2E7D32,stroke-width:1px,color:#000
+
+    class A,B,C,D focus
+    class CLI framework
+    class DT1,DT2,DT3,DT4,DT5,DT6,BS1,BS2,BS3,BS4,BS5,BS6,PK1,PK2,PK3,PK4,PK5,PK6,RL1,RL2,RL3,RL4,RL5,RL6,QA1,QA2,QA3,QA4,QA5,QA6 tool
+    class CMD1,CMD2,CMD3,CMD4,CMD5 command
+```
+
+### 🎓 **Perfect for AI Developers & Researchers**
+
+**Your Focus:** Research, Models, Algorithms, Data Processing
+**Our Focus:** DevOps, Testing, Building, Packaging, Distribution
+
+</div>
 
 ## ✨ Features
 
-- 🧩 **Modular Architecture**: Each command group in its own module
-- 🔧 **Development Tools**: Integrated linting (ruff), formatting (black), and type checking (mypy)
-- 🔒 **Pre-commit Hooks**: Automatic code quality checks before commits
-- 🎯 **Auto-setup**: Virtual environment and dependencies managed automatically
-- 🐍 **Type-Safe**: Full type annotations with strict mypy checking
-- 📦 **Zero Config**: Works out of the box with sensible defaults
-- 🚀 **Production Ready**: Best practices baked in from the start
+### 🧩 Modular Command Architecture
+Each command group lives in its own module. Add new commands by creating a file in `commands/subs/`:
+
+```python
+# commands/subs/hello.py
+import click
+
+@click.group()
+def hello() -> None:
+    """Hello world commands"""
+    pass
+
+@hello.command()
+def world() -> None:
+    """Say hello to the world"""
+    click.echo("Hello, World! 🌍")
+```
+
+### 🔧 Professional Development Tools
+Built-in development commands that enforce code quality:
+
+```bash
+cli dev format     # Auto-format with Black
+cli dev lint       # Lint with Ruff
+cli dev typecheck  # Type check with MyPy
+cli dev test       # Run tests with pytest
+cli dev all        # Run everything at once
+```
+
+### 🎨 Rich Command Examples
+Placeholder commands with comprehensive options to learn from:
+
+```bash
+# Build commands with platform targeting
+cli build all --target linux --arch x86_64 --release
+
+# Package commands with multiple formats
+cli package build --format wheel --sign --include-deps
+
+# Release commands with distribution support
+cli release create --version 1.0.0 --draft --notes "First release!"
+cli release publish --target pypi --skip-tests
+```
+
+### 🔒 Type Safety Throughout
+Full type annotations with strict MyPy checking:
+
+```python
+from typing import Optional, List, Dict
+from pathlib import Path
+
+def process_files(
+    files: List[Path],
+    options: Dict[str, Any],
+    output: Optional[Path] = None
+) -> bool:
+    """Fully typed functions catch errors before runtime"""
+    ...
+```
+
+### 🎯 Shell Completion
+Tab completion that just works:
+
+```bash
+cli <TAB>
+# Shows: build dev package proj release version
+
+cli dev <TAB>
+# Shows: all format lint typecheck test precommit
+
+cli build all --<TAB>
+# Shows: --target --arch --force --copy-only --debug --release
+```
+
+### 📊 Project Intelligence
+Built-in project management commands:
+
+```bash
+cli proj info   # Git status, branch info, recent commits
+cli proj size   # Repository size analysis
+cli proj stats  # File counts, lines of code, language breakdown
+```
+
+## 📖 Command Showcase
+
+### Development Workflow
+
+```bash
+# Start your day - check project status
+$ cli proj info
+📊 Project Information
+Git branch: main
+Status: 3 modified files
+Latest commit: 2 hours ago
+
+# Make changes and check quality
+$ cli dev all
+✅ Black: All formatted
+✅ Ruff: No issues
+✅ MyPy: Type safe
+✅ Tests: 42 passed
+
+# Ready to commit - run pre-commit checks
+$ cli dev precommit --fix
+✅ All pre-commit checks passed!
+```
+
+### Extensible Placeholders
+
+The template includes thoughtfully designed placeholder commands that demonstrate various CLI patterns:
+
+#### Build System
+```bash
+cli build all --target darwin --arch arm64 --release
+cli build clean --force --cache --deps
+cli build component my-component --copy-only
+```
+
+#### Package Management
+```bash
+cli package build --format wheel --output ./dist
+cli package dist --upload-url https://pypi.org --verify
+cli package list --outdated --format json
+cli package verify package.whl --check-signature
+```
+
+#### Release Automation
+```bash
+cli release create --version 2.0.0 --tag v2.0.0 --draft
+cli release publish --target github --token $GITHUB_TOKEN
+cli release list --limit 10
+cli release delete 1.0.0-beta --keep-tag
+```
+
+## 🏗️ Project Structure
+
+```
+your-project/
+├── commands/             # CLI implementation
+│   ├── config.py         # Project configuration (customize here!)
+│   ├── main.py           # CLI entry point
+│   ├── subs/             # Command modules
+│   │   ├── build/        # Build commands
+│   │   ├── dev/          # Development tools
+│   │   ├── package/      # Package management
+│   │   ├── proj/         # Project utilities
+│   │   └── release/      # Release automation
+│   ├── utils/            # Shared utilities
+│   └── tests/            # Test suite
+├── tools/                # Development tools
+├── .pre-commit-config.yaml
+├── pyproject.toml        # Project configuration
+├── setup.sh              # One-command setup
+├── LICENSE               # AGPL-3.0
+└── README.md             # You are here!
+```
+
+## 🛠️ Customization Guide
+
+### 1. Make It Yours
+
+Edit `commands/config.py`:
+
+```python
+PROJECT_NAME = "MyCLI"
+PROJECT_DESCRIPTION = "My awesome CLI tool"
+```
+
+### 2. Add Your Commands
+
+Create new command groups in `commands/subs/`:
+
+```python
+# commands/subs/database.py
+import click
+
+@click.group()
+def database() -> None:
+    """Database management commands"""
+    pass
+
+@database.command()
+@click.option("--host", default="localhost")
+def connect(host: str) -> None:
+    """Connect to database"""
+    click.echo(f"Connecting to {host}...")
+```
+
+### 3. Register Commands
+
+Add to `commands/main.py`:
+
+```python
+from commands.subs.database import database
+
+cli.add_command(database)
+```
 
 ## 📋 Requirements
 
@@ -109,60 +463,103 @@ cli dev -a                 # Run all code checks
 - Git (for pre-commit hooks)
 - Unix-like environment (Linux, macOS, WSL)
 
-## 🛠️ Development
+## 🧪 Testing
+
+The template includes a complete testing setup:
 
 ```bash
-# Format code
-cli dev -f
+# Run all tests
+cli dev test
 
-# Run linter
-cli dev -l
+# Run specific test file
+pytest commands/tests/test_main.py -v
 
-# Type check
-cli dev -t
+# Run with coverage
+pytest --cov=commands --cov-report=html
 
-# Run all checks
-cli dev -a
+# Open coverage report
+open htmlcov/index.html
 ```
 
-Pre-commit hooks run automatically on `git commit`.
+## 🔍 Pre-commit Hooks
 
-## 🏗️ Architecture
+Quality checks run automatically on every commit:
 
-See [commands/README.md](commands/README.md) for detailed architecture documentation.
+- **Black** - Code formatting
+- **Ruff** - Fast Python linting
+- **MyPy** - Static type checking
 
-## 📌 Versioning
+Run manually anytime:
 
-Version is managed in `commands/__version__.py`. To update:
-
-```python
-# commands/__version__.py
-__version__ = "1.0.0"  # Update this
+```bash
+cli dev precommit        # Check staged files
+cli dev precommit --fix  # Auto-fix issues
+cli dev precommit --ci   # Check all files
 ```
 
-Access version in your code:
-```python
-from commands import __version__
-print(f"Version: {__version__}")
-```
+## 📚 Documentation
 
-The version is automatically used in:
-- `cli --version`
-- Package metadata
-- PyPI uploads (if you publish)
+- [CLAUDE.md](CLAUDE.md) - Development guidelines and conventions
+- [Commands Reference](#-command-showcase) - Detailed command documentation
+- [API Documentation](docs/api.md) - Python API reference (if applicable)
+
+## 🤝 Contributing
+
+We love contributions! Whether it's:
+
+- 🐛 Bug reports
+- 💡 Feature suggestions
+- 📖 Documentation improvements
+- 🔧 Code contributions
+
+Please check our [Contributing Guide](CONTRIBUTING.md) (coming soon) for details.
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) file for details.
+This project is licensed under the AGPL-3.0 License - see the [LICENSE](LICENSE) file for details.
+
+The AGPL-3.0 ensures that any modifications to this CLI framework remain open source, benefiting the entire community.
+
+## 🙏 Acknowledgments
+
+### Built With
+
+- [Click](https://click.palletsprojects.com/) - Command line interface creation kit
+- [Black](https://github.com/psf/black) - The uncompromising code formatter
+- [Ruff](https://github.com/astral-sh/ruff) - An extremely fast Python linter
+- [MyPy](https://mypy-lang.org/) - Static type checker for Python
+- [Rich](https://github.com/Textualize/rich) - Rich text and beautiful formatting
+
+### Special Thanks
+
+If you find ehAye™ Core CLI helpful, we'd appreciate a mention:
+
+> This project was bootstrapped with [ehAye™ Core CLI](https://github.com/neekware/ehAyeCoreCLI)
+
+## 🚦 Status
+
+<div align="center">
+
+**Project Status:** 🟢 Active Development
+
+[![GitHub issues](https://img.shields.io/github/issues/neekware/ehAyeCoreCLI)](https://github.com/neekware/ehAyeCoreCLI/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/neekware/ehAyeCoreCLI)](https://github.com/neekware/ehAyeCoreCLI/pulls)
+[![GitHub stars](https://img.shields.io/github/stars/neekware/ehAyeCoreCLI?style=social)](https://github.com/neekware/ehAyeCoreCLI)
+
+</div>
 
 ---
 
-### 🙏 Attribution
+<div align="center">
 
-If your project is public and you found CoreCLI helpful, we'd appreciate a mention like:
-> This project was bootstrapped with [CoreCLI](https://github.com/neekware/CoreCLI)
+**Ready to build something amazing?**
 
+[Get Started Now](#-quick-start) • [Star on GitHub](https://github.com/neekware/ehAyeCoreCLI) • [Report an Issue](https://github.com/neekware/ehAyeCoreCLI/issues)
 
----
+<br>
+
+**Built with Python 🐍**
 
 Developed with ❤️ by [Val Neekman](https://github.com/un33k) @ [Neekware Inc.](https://neekware.com)
+
+</div>

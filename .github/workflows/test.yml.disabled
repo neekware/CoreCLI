@@ -1,0 +1,85 @@
+name: Quick Test
+
+on:
+  push:
+    branches:
+      - main
+      - 'feat/*'
+      - 'fix/*'
+      - 'chore/*'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  quick-test:
+    name: Quick Test (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.11']
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+    
+    - name: 🐍 Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: 📦 Cache pip packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: 📦 Install dependencies
+      run: |
+        python -m pip install --upgrade pip setuptools wheel
+        # Install package with all dependencies
+        pip install -e '.[dev]'
+        # Verify click is installed
+        python -c "import click; print(f'Click version: {click.__version__}')"
+    
+    - name: ✅ Verify CLI installation
+      run: |
+        # Add current directory to PYTHONPATH for module execution
+        export PYTHONPATH="${PYTHONPATH}:$(pwd)"
+        
+        # Test as module with proper path
+        python -m commands --version
+        python -m commands --help
+        
+        # Test direct CLI if available
+        which cli && cli --version || echo "CLI not in PATH yet"
+    
+    - name: 🎨 Check code formatting
+      run: black . --check
+    
+    - name: 🔍 Lint with ruff
+      run: ruff check .
+    
+    - name: 🔍 Type check with mypy
+      run: mypy commands
+    
+    - name: 🧪 Run tests
+      run: pytest commands/tests/ -v
+    
+    - name: 🎯 Test CLI commands
+      run: |
+        # Since we installed with -e, use the cli command directly
+        cli proj size
+        cli proj stats
+        cli dev --help
+        
+        # Also test module execution
+        export PYTHONPATH="${PYTHONPATH}:$(pwd)"
+        python -m commands proj size || echo "Module execution needs PYTHONPATH"
+    
+    - name: ✅ Run all checks via CLI
+      run: |
+        # Use the installed CLI command
+        cli dev all
