@@ -22,13 +22,19 @@ jobs:
     
     - name: Run setup and tests
       run: |
+        # Debug: Show directory structure
+        echo "=== Directory structure ==="
+        ls -la commands/
+        ls -la commands/subs/
+        ls -la commands/subs/build/ || echo "build dir missing"
+        
         # Setup environment and install as editable package
         python -m venv .venv
         source .venv/bin/activate
         pip install --upgrade pip setuptools wheel
         
-        # Install the package in editable mode
-        pip install -e .
+        # Install the package in editable mode with verbose output
+        pip install -e . -v
         
         # Install dev dependencies
         pip install -r tools/requirements.txt

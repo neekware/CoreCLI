@@ -7,7 +7,7 @@ name = "core-cli"
 dynamic = ["version"]
 description = "ehAye™ Core CLI - A modular command-line interface framework"
 authors = [
-    {name = "Your Name", email = "you@example.com"}
+    {name = "Val Neekman", email = "info@neekware.com"}
 ]
 requires-python = ">=3.9"
 dependencies = [
@@ -27,18 +27,10 @@ dev = [
 [project.scripts]
 cli = "commands.main:main"
 
-[tool.setuptools]
-packages = [
-    "commands",
-    "commands.subs",
-    "commands.subs.build", 
-    "commands.subs.dev",
-    "commands.subs.package",
-    "commands.subs.proj",
-    "commands.subs.release",
-    "commands.tests",
-    "commands.utils",
-]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["commands", "commands.*"]
+exclude = ["commands.tests*"]
 
 [tool.setuptools.dynamic]
 version = {attr = "commands.__version__"}
