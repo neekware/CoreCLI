@@ -39,7 +39,10 @@ jobs:
     - name: 📦 Install dependencies
       run: |
         python -m pip install --upgrade pip setuptools wheel
+        # Install package with all dependencies
         pip install -e '.[dev]'
+        # Verify click is installed
+        python -c "import click; print(f'Click version: {click.__version__}')"
     
     - name: ✅ Verify CLI installation
       run: |

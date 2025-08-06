@@ -10,7 +10,9 @@ authors = [
     {name = "Your Name", email = "you@example.com"}
 ]
 requires-python = ">=3.9"
-dependencies = []
+dependencies = [
+    "click>=8.0",
+]
 
 [project.optional-dependencies]
 dev = [
@@ -25,8 +27,9 @@ dev = [
 [project.scripts]
 cli = "commands.main:main"
 
-[tool.setuptools]
-packages = ["commands"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["commands*"]
 
 [tool.setuptools.dynamic]
 version = {attr = "commands.__version__"}

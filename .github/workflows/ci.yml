@@ -214,8 +214,11 @@ jobs:
     
     - name: 📦 Install package
       run: |
-        python -m pip install --upgrade pip
+        python -m pip install --upgrade pip setuptools wheel
+        # Install with runtime dependencies
         pip install -e .
+        # Verify dependencies are installed
+        python -c "import click; print(f'Click installed: {click.__version__}')"
     
     - name: 🎯 Test CLI help commands
       run: |
