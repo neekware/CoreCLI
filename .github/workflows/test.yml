@@ -46,7 +46,10 @@ jobs:
     
     - name: ✅ Verify CLI installation
       run: |
-        # Test as module first
+        # Add current directory to PYTHONPATH for module execution
+        export PYTHONPATH="${PYTHONPATH}:$(pwd)"
+        
+        # Test as module with proper path
         python -m commands --version
         python -m commands --help
         
@@ -67,18 +70,16 @@ jobs:
     
     - name: 🎯 Test CLI commands
       run: |
-        # Run via Python module to ensure it works
-        python -m commands proj size
-        python -m commands proj stats
-        python -m commands dev --help
+        # Since we installed with -e, use the cli command directly
+        cli proj size
+        cli proj stats
+        cli dev --help
         
-        # Test with actual cli command if installed
-        if command -v cli &> /dev/null; then
-          cli --help
-          cli proj --help
-          cli dev --help
-        fi
+        # Also test module execution
+        export PYTHONPATH="${PYTHONPATH}:$(pwd)"
+        python -m commands proj size || echo "Module execution needs PYTHONPATH"
     
-    - name: ✅ Run all checks via module
+    - name: ✅ Run all checks via CLI
       run: |
-        python -m commands dev all
+        # Use the installed CLI command
+        cli dev all

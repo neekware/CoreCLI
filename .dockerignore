@@ -1,0 +1,27 @@
+# Docker ignore file
+.git
+.github
+.venv
+test-install
+*.pyc
+__pycache__
+.pytest_cache
+.mypy_cache
+.coverage
+htmlcov
+*.egg-info
+dist
+build
+.DS_Store
+.idea
+.vscode
+*.swp
+*.swo
+*~
+test-*.sh
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+.gitignore
+README.md
+docs/
