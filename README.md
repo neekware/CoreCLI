@@ -4,6 +4,8 @@
 
 <img src="assets/ehAye.png" alt="ehAye Logo" width="300" />
 
+**ehAye** *(pronounced "A.I.")* — A name that nods to Canadian "eh?" and Scottish "aye" (yes)
+
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Linting: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
@@ -145,109 +147,37 @@ Your team will thank you. Your future self will thank you.
 <div align="center">
 
 ```mermaid
-flowchart TB
-    subgraph YourFocus["🎯 YOUR FOCUS AREA"]
-        direction TB
-        A[fa:fa-brain Your Ideas]
-        B[fa:fa-code Your Core Logic]
-        C[fa:fa-flask Your Research]
-        D[fa:fa-robot Your AI Models]
-        A --> B
-        C --> B
-        D --> B
+graph LR
+    subgraph "Your Code"
+        Y[Write Your Logic]
     end
 
-    B ==>|Just Write Code| CLI[fa:fa-terminal ehAye™ Core CLI Framework]
-
-    subgraph Infrastructure["🔧 WE HANDLE ALL THIS"]
-        direction TB
-
-        subgraph DevTools["🛠️ Development Tools"]
-            DT1[fa:fa-paint-brush Black<br/>Auto-formatting]
-            DT2[fa:fa-search Ruff<br/>Fast Linting]
-            DT3[fa:fa-shield MyPy<br/>Type Safety]
-            DT4[fa:fa-check-circle Pytest<br/>Testing Suite]
-            DT5[fa:fa-code-branch Pre-commit<br/>Git Hooks]
-            DT6[fa:fa-terminal Shell<br/>Completion]
-        end
-
-        subgraph BuildSys["📦 Build System"]
-            BS1[fa:fa-linux Linux<br/>Builds]
-            BS2[fa:fa-apple macOS<br/>Builds]
-            BS3[fa:fa-windows Windows<br/>Builds]
-            BS4[fa:fa-microchip ARM64<br/>Support]
-            BS5[fa:fa-desktop x86_64<br/>Support]
-            BS6[fa:fa-bug Debug<br/>Builds]
-        end
-
-        subgraph Package["📚 Package Management"]
-            PK1[fa:fa-box Wheel<br/>Creation]
-            PK2[fa:fa-upload PyPI<br/>Publishing]
-            PK3[fa:fa-download Dependency<br/>Resolution]
-            PK4[fa:fa-archive Source<br/>Distribution]
-            PK5[fa:fa-certificate Package<br/>Signing]
-            PK6[fa:fa-check Verification]
-        end
-
-        subgraph Release["🚀 Release Automation"]
-            RL1[fa:fa-tag Version<br/>Tagging]
-            RL2[fa:fa-github GitHub<br/>Releases]
-            RL3[fa:fa-docker Docker<br/>Images]
-            RL4[fa:fa-file-text Changelog<br/>Generation]
-            RL5[fa:fa-cloud CI/CD<br/>Pipeline]
-            RL6[fa:fa-bell Notifications]
-        end
-
-        subgraph Quality["✅ Quality Assurance"]
-            QA1[fa:fa-microscope Code<br/>Coverage]
-            QA2[fa:fa-shield-alt Security<br/>Scanning]
-            QA3[fa:fa-chart-line Performance<br/>Metrics]
-            QA4[fa:fa-book Documentation<br/>Check]
-            QA5[fa:fa-sync Integration<br/>Tests]
-            QA6[fa:fa-globe Cross-platform<br/>Tests]
-        end
+    subgraph "ehAye™ CLI"
+        E[Universal Commands]
     end
 
-    CLI --> DevTools
-    CLI --> BuildSys
-    CLI --> Package
-    CLI --> Release
-    CLI --> Quality
-
-    subgraph Commands["💻 CLI COMMANDS"]
-        direction LR
-        CMD1[cli dev all]
-        CMD2[cli build --target]
-        CMD3[cli package dist]
-        CMD4[cli release create]
-        CMD5[cli proj stats]
+    subgraph "We Handle"
+        W1[Development Tools]
+        W2[Build Systems]
+        W3[Package Management]
+        W4[Release Automation]
+        W5[Quality Assurance]
     end
 
-    DevTools -.-> CMD1
-    BuildSys -.-> CMD2
-    Package -.-> CMD3
-    Release -.-> CMD4
-    Quality -.-> CMD5
+    Y --> E
+    E --> W1
+    E --> W2
+    E --> W3
+    E --> W4
+    E --> W5
 
-    style YourFocus fill:#C8E6C9,stroke:#2E7D32,stroke-width:4px,color:#000
-    style Infrastructure fill:#FFF3E0,stroke:#F57C00,stroke-width:2px,color:#000
-    style CLI fill:#BBDEFB,stroke:#1565C0,stroke-width:3px,color:#000
-    style DevTools fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
-    style BuildSys fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
-    style Package fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
-    style Release fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
-    style Quality fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
-    style Commands fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#000
-
-    classDef focus fill:#C8E6C9,stroke:#2E7D32,stroke-width:3px,color:#000
-    classDef framework fill:#BBDEFB,stroke:#1565C0,stroke-width:2px,color:#000
-    classDef tool fill:#FFF3E0,stroke:#F57C00,stroke-width:1px,color:#000
-    classDef command fill:#E8F5E9,stroke:#2E7D32,stroke-width:1px,color:#000
-
-    class A,B,C,D focus
-    class CLI framework
-    class DT1,DT2,DT3,DT4,DT5,DT6,BS1,BS2,BS3,BS4,BS5,BS6,PK1,PK2,PK3,PK4,PK5,PK6,RL1,RL2,RL3,RL4,RL5,RL6,QA1,QA2,QA3,QA4,QA5,QA6 tool
-    class CMD1,CMD2,CMD3,CMD4,CMD5 command
+    style Y fill:#2e7d32,color:#fff
+    style E fill:#1565c0,color:#fff
+    style W1 fill:#455a64,color:#fff
+    style W2 fill:#455a64,color:#fff
+    style W3 fill:#455a64,color:#fff
+    style W4 fill:#455a64,color:#fff
+    style W5 fill:#455a64,color:#fff
 ```
 
 ### 🎓 **Perfect for AI Developers & Researchers**
@@ -397,23 +327,24 @@ cli release delete 1.0.0-beta --keep-tag
 
 ```
 your-project/
-├── commands/             # CLI implementation
-│   ├── config.py         # Project configuration (customize here!)
-│   ├── main.py           # CLI entry point
-│   ├── subs/             # Command modules
-│   │   ├── build/        # Build commands
-│   │   ├── dev/          # Development tools
-│   │   ├── package/      # Package management
-│   │   ├── proj/         # Project utilities
-│   │   └── release/      # Release automation
-│   ├── utils/            # Shared utilities
-│   └── tests/            # Test suite
-├── tools/                # Development tools
-├── .pre-commit-config.yaml
-├── pyproject.toml        # Project configuration
-├── setup.sh              # One-command setup
-├── LICENSE               # AGPL-3.0
-└── README.md             # You are here!
+├── commands/               # CLI implementation
+│   ├── config.py           # Project configuration (customize here!)
+│   ├── main.py             # CLI entry point
+│   ├── subs/               # Command modules
+│   │   ├── build/          # Build commands
+│   │   ├── dev/            # Development tools
+│   │   ├── package/        # Package management
+│   │   ├── proj/           # Project utilities
+│   │   └── release/        # Release automation
+│   ├── utils/              # Shared utilities
+│   └── tests/              # Test suite
+├── src/                    # Your core project goes here (any language)
+├── tools/                  # Development tools
+├── .pre-commit-config.yaml # Precommit hook (ensures sanity)
+├── pyproject.toml          # Project configuration
+├── setup.sh                # One-command setup
+├── LICENSE                 # AGPL-3.0
+└── README.md               # You are here!
 ```
 
 ## 🛠️ Customization Guide
