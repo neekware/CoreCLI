@@ -61,43 +61,115 @@ That's it! You now have a fully functional CLI with development tools, testing, 
 <div align="center">
 
 ```mermaid
-graph TD
-    A[Your Source Code] -->|Focus Here| B[Your Core Logic]
-    B --> CLI[ehAye™ Core CLI Framework]
-    
-    CLI --> D[Development Tools]
-    CLI --> E[Build System]
-    CLI --> F[Package Management]
-    CLI --> G[Release Pipeline]
-    
-    D --> D1[Black Formatter]
-    D --> D2[Ruff Linter]
-    D --> D3[MyPy Type Checker]
-    D --> D4[Pytest Runner]
-    
-    E --> E1[Multi-Platform Builds]
-    E --> E2[Architecture Support]
-    E --> E3[Debug/Release Modes]
-    
-    F --> F1[Wheel/Sdist Creation]
-    F --> F2[PyPI Publishing]
-    F --> F3[Dependency Management]
-    
-    G --> G1[Version Management]
-    G --> G2[GitHub Releases]
-    G --> G3[Docker Images]
-    
-    style A fill:#C8E6C9,stroke:#2E7D32,stroke-width:3px,color:#000
-    style B fill:#C8E6C9,stroke:#2E7D32,stroke-width:3px,color:#000
-    style CLI fill:#BBDEFB,stroke:#1565C0,stroke-width:2px,color:#000
-    style D fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
-    style E fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
-    style F fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
-    style G fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
+flowchart TB
+    subgraph YourFocus["🎯 YOUR FOCUS AREA"]
+        direction TB
+        A[fa:fa-brain Your Ideas]
+        B[fa:fa-code Your Core Logic]
+        C[fa:fa-flask Your Research]
+        D[fa:fa-robot Your AI Models]
+        A --> B
+        C --> B
+        D --> B
+    end
+
+    B ==>|Just Write Code| CLI[fa:fa-terminal ehAye™ Core CLI Framework]
+
+    subgraph Infrastructure["🔧 WE HANDLE ALL THIS"]
+        direction TB
+
+        subgraph DevTools["🛠️ Development Tools"]
+            DT1[fa:fa-paint-brush Black<br/>Auto-formatting]
+            DT2[fa:fa-search Ruff<br/>Fast Linting]
+            DT3[fa:fa-shield MyPy<br/>Type Safety]
+            DT4[fa:fa-check-circle Pytest<br/>Testing Suite]
+            DT5[fa:fa-code-branch Pre-commit<br/>Git Hooks]
+            DT6[fa:fa-terminal Shell<br/>Completion]
+        end
+
+        subgraph BuildSys["📦 Build System"]
+            BS1[fa:fa-linux Linux<br/>Builds]
+            BS2[fa:fa-apple macOS<br/>Builds]
+            BS3[fa:fa-windows Windows<br/>Builds]
+            BS4[fa:fa-microchip ARM64<br/>Support]
+            BS5[fa:fa-desktop x86_64<br/>Support]
+            BS6[fa:fa-bug Debug<br/>Builds]
+        end
+
+        subgraph Package["📚 Package Management"]
+            PK1[fa:fa-box Wheel<br/>Creation]
+            PK2[fa:fa-upload PyPI<br/>Publishing]
+            PK3[fa:fa-download Dependency<br/>Resolution]
+            PK4[fa:fa-archive Source<br/>Distribution]
+            PK5[fa:fa-certificate Package<br/>Signing]
+            PK6[fa:fa-check Verification]
+        end
+
+        subgraph Release["🚀 Release Automation"]
+            RL1[fa:fa-tag Version<br/>Tagging]
+            RL2[fa:fa-github GitHub<br/>Releases]
+            RL3[fa:fa-docker Docker<br/>Images]
+            RL4[fa:fa-file-text Changelog<br/>Generation]
+            RL5[fa:fa-cloud CI/CD<br/>Pipeline]
+            RL6[fa:fa-bell Notifications]
+        end
+
+        subgraph Quality["✅ Quality Assurance"]
+            QA1[fa:fa-microscope Code<br/>Coverage]
+            QA2[fa:fa-shield-alt Security<br/>Scanning]
+            QA3[fa:fa-chart-line Performance<br/>Metrics]
+            QA4[fa:fa-book Documentation<br/>Check]
+            QA5[fa:fa-sync Integration<br/>Tests]
+            QA6[fa:fa-globe Cross-platform<br/>Tests]
+        end
+    end
+
+    CLI --> DevTools
+    CLI --> BuildSys
+    CLI --> Package
+    CLI --> Release
+    CLI --> Quality
+
+    subgraph Commands["💻 CLI COMMANDS"]
+        direction LR
+        CMD1[cli dev all]
+        CMD2[cli build --target]
+        CMD3[cli package dist]
+        CMD4[cli release create]
+        CMD5[cli proj stats]
+    end
+
+    DevTools -.-> CMD1
+    BuildSys -.-> CMD2
+    Package -.-> CMD3
+    Release -.-> CMD4
+    Quality -.-> CMD5
+
+    style YourFocus fill:#C8E6C9,stroke:#2E7D32,stroke-width:4px,color:#000
+    style Infrastructure fill:#FFF3E0,stroke:#F57C00,stroke-width:2px,color:#000
+    style CLI fill:#BBDEFB,stroke:#1565C0,stroke-width:3px,color:#000
+    style DevTools fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
+    style BuildSys fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
+    style Package fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
+    style Release fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
+    style Quality fill:#FFE0B2,stroke:#F57C00,stroke-width:2px,color:#000
+    style Commands fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#000
+
+    classDef focus fill:#C8E6C9,stroke:#2E7D32,stroke-width:3px,color:#000
+    classDef framework fill:#BBDEFB,stroke:#1565C0,stroke-width:2px,color:#000
+    classDef tool fill:#FFF3E0,stroke:#F57C00,stroke-width:1px,color:#000
+    classDef command fill:#E8F5E9,stroke:#2E7D32,stroke-width:1px,color:#000
+
+    class A,B,C,D focus
+    class CLI framework
+    class DT1,DT2,DT3,DT4,DT5,DT6,BS1,BS2,BS3,BS4,BS5,BS6,PK1,PK2,PK3,PK4,PK5,PK6,RL1,RL2,RL3,RL4,RL5,RL6,QA1,QA2,QA3,QA4,QA5,QA6 tool
+    class CMD1,CMD2,CMD3,CMD4,CMD5 command
 ```
 
-**Your responsibility:** Write your application logic  
-**Our responsibility:** Everything else - testing, linting, building, packaging, releasing
+### 🎓 **Perfect for AI Developers & Researchers**
+
+**Your Focus:** Research, Models, Algorithms, Data Processing
+**Our Focus:** DevOps, Testing, Building, Packaging, Distribution
 
 </div>
 
@@ -241,7 +313,7 @@ cli release delete 1.0.0-beta --keep-tag
 
 ```
 your-project/
-├── commands/              # CLI implementation
+├── commands/             # CLI implementation
 │   ├── config.py         # Project configuration (customize here!)
 │   ├── main.py           # CLI entry point
 │   ├── subs/             # Command modules
@@ -257,7 +329,7 @@ your-project/
 ├── pyproject.toml        # Project configuration
 ├── setup.sh              # One-command setup
 ├── LICENSE               # AGPL-3.0
-└── README.md            # You are here!
+└── README.md             # You are here!
 ```
 
 ## 🛠️ Customization Guide
