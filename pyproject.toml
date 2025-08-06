@@ -29,7 +29,7 @@ cli = "commands.main:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["commands*"]
+include = ["commands", "commands.*"]
 
 [tool.setuptools.dynamic]
 version = {attr = "commands.__version__"}
