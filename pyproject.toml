@@ -27,9 +27,18 @@ dev = [
 [project.scripts]
 cli = "commands.main:main"
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["commands", "commands.*"]
+[tool.setuptools]
+packages = [
+    "commands",
+    "commands.subs",
+    "commands.subs.build", 
+    "commands.subs.dev",
+    "commands.subs.package",
+    "commands.subs.proj",
+    "commands.subs.release",
+    "commands.tests",
+    "commands.utils",
+]
 
 [tool.setuptools.dynamic]
 version = {attr = "commands.__version__"}
