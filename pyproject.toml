@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "core-cli"
 dynamic = ["version"]
-description = "Core CLI - A modular command-line interface framework"
+description = "ehAye™ Core CLI - A modular command-line interface framework"
 authors = [
     {name = "Your Name", email = "you@example.com"}
 ]

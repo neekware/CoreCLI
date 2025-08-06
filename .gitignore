@@ -41,6 +41,9 @@ models/
 
 # CLI executable is installed in .venv/bin/cli
 
+# Auto-generated completion scripts
+commands/autogen/
+
 # Keep .claude directory structure but ignore some files
 .claude/*
 !.claude/.keep

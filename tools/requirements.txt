@@ -1,0 +1,8 @@
+# Development dependencies for ehAye™ Core CLI
+click>=8.0
+pytest>=7.0
+pytest-cov>=3.0
+black>=23.0
+ruff>=0.1.0
+mypy>=1.0
+pre-commit>=3.0
