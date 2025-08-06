@@ -22,27 +22,21 @@ jobs:
     
     - name: Run setup and tests
       run: |
-        # Debug info
-        pwd
-        ls -la
-        
-        # Setup
-        ./setup.sh -y
-        
-        # Activate and test with PYTHONPATH
+        # Setup environment and install as editable package
+        python -m venv .venv
         source .venv/bin/activate
-        export PYTHONPATH="${PYTHONPATH}:$(pwd)"
+        pip install --upgrade pip setuptools wheel
         
-        # Run CLI directly via Python first to test
-        python -m commands --version
+        # Install the package in editable mode
+        pip install -e .
         
-        # Now try the cli command
-        cli --version || echo "CLI command failed, trying direct Python"
+        # Install dev dependencies
+        pip install -r tools/requirements.txt
         
-        # Run tests directly via Python
-        python -m commands dev all || echo "Tests via module failed"
+        # Verify installation
+        python -c "from commands.subs import build; print('Import successful')"
         
-        # Alternative: run dev checks directly
+        # Run tests
         black . --check
         ruff check .
         mypy commands
