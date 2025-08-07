@@ -1,16 +1,45 @@
 #!/usr/bin/env python3
 """Tests for dev commands"""
 
+import shlex
 import subprocess
+import sys
 
 import pytest
 
 
 def run_cli_command(args: str) -> tuple[int, str, str]:
-    """Run a CLI command and return exit code, stdout, stderr"""
-    cmd = f"cli {args}"
-    result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-    return result.returncode, result.stdout, result.stderr
+    """Run a CLI command and return exit code, stdout, stderr.
+
+    Args:
+        args: Command arguments as a string (will be safely parsed)
+
+    Returns:
+        Tuple of (exit_code, stdout, stderr)
+
+    Note:
+        This function safely parses arguments to prevent shell injection.
+        It executes the CLI module directly instead of using shell=True.
+    """
+    # Safely parse arguments using shlex to prevent injection
+    parsed_args = shlex.split(args)
+
+    # Execute the CLI module directly without shell
+    cmd = [sys.executable, "-m", "commands", *parsed_args]
+
+    try:
+        result = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=30,  # Add timeout to prevent hanging
+            check=False,  # Don't raise on non-zero exit
+        )
+        return result.returncode, result.stdout, result.stderr
+    except subprocess.TimeoutExpired:
+        return -1, "", "Command timed out after 30 seconds"
+    except Exception as e:
+        return -1, "", f"Command execution failed: {e}"
 
 
 class TestDevCommands:

@@ -9,6 +9,8 @@ __pycache__/
 dist/
 /build/
 .eggs/
+# Ensure egg-info is only in .venv
+/core_cli.egg-info/
 
 # Virtual environments
 .venv/
@@ -51,8 +53,9 @@ htmlcov/
 
 # CLI executable is installed in .venv/bin/cli
 
-# Auto-generated completion scripts
-commands/autogen/
+# Auto-generated completion scripts (keep .gitkeep)
+commands/autogen/*
+!commands/autogen/.gitkeep
 
 # Keep .claude directory structure but ignore some files
 .claude/*
