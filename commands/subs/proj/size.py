@@ -1,15 +1,16 @@
 """Repository size command"""
 
 import subprocess
-from pathlib import Path
 
 import click
+
+from commands.utils.paths import get_paths
 
 
 @click.command()
 def size() -> None:
     """Show repository size"""
-    project_root = Path(__file__).parent.parent.parent.parent
+    project_root = get_paths().root
 
     try:
         # Use du command to get directory size

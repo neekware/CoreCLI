@@ -5,11 +5,13 @@ from pathlib import Path
 
 import click
 
+from commands.utils.paths import get_paths
+
 
 @click.command()
 def stats() -> None:
     """Show detailed statistics"""
-    project_root = Path(__file__).parent.parent.parent.parent
+    project_root = get_paths().root
 
     try:
         # Count files by extension
