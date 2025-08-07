@@ -90,7 +90,7 @@ def precommit(fix: bool, ci: bool) -> None:
     # 4. Run tests if in CI mode
     if ci:
         click.echo("\n🧪 Running tests...")
-        test_cmd = ["pytest", "commands/tests/"]
+        test_cmd = ["pytest", "tests/commands/"]
         result = subprocess.run(test_cmd, capture_output=True, text=True)
         if result.returncode != 0:
             click.echo("   ✗ Tests failed")

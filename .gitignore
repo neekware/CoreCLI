@@ -33,6 +33,16 @@ logs/
 models/
 *.log
 
+# Test artifacts
+tests/env/tmp/
+tests/**/*.tmp
+tests/**/*.temp
+tests/**/__pycache__/
+.pytest_cache/
+.coverage
+htmlcov/
+*.coverage
+
 # Temporary files
 *.tmp
 *.temp

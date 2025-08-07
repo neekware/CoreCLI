@@ -30,7 +30,7 @@ cli = "commands.main:main"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["commands", "commands.*"]
-exclude = ["commands.tests*"]
+exclude = ["tests*"]
 
 [tool.setuptools.dynamic]
 version = {attr = "commands.__version__"}
@@ -69,3 +69,9 @@ warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
 ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
