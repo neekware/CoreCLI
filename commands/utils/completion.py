@@ -286,9 +286,9 @@ class ModularCompletionRegistry:
                             completions = module.COMPLETIONS
                             for cmd_name, completer in completions.items():
                                 # Register with full path for nested commands
-                                self.completions[
-                                    f"{subdir.name}.{cmd_name}"
-                                ] = completer
+                                self.completions[f"{subdir.name}.{cmd_name}"] = (
+                                    completer
+                                )
                     except ImportError:
                         # Silently skip if module can't be imported
                         pass
