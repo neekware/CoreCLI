@@ -178,54 +178,50 @@ def generate_completion_script(cli_info: dict[str, Any]) -> str:
     # First, collect all commands and their structures
     all_commands = list(cli_info["subcommands"].keys())
 
-    script = (
-        '''#!/bin/bash
+    script = f"""#!/bin/bash
 # Auto-generated completion script for ehAye™ Core CLI
 export _ehaye_cli_completions_loaded=1
 
-_ehaye_cli_completions() {
+_ehaye_cli_completions() {{
     local cur prev words cword
     if [[ -n "$ZSH_VERSION" ]]; then
-        cur="${COMP_WORDS[COMP_CWORD]}"
-        prev="${COMP_WORDS[COMP_CWORD-1]}"
-        words=("${COMP_WORDS[@]}")
+        cur="${{COMP_WORDS[COMP_CWORD]}}"
+        prev="${{COMP_WORDS[COMP_CWORD-1]}}"
+        words=("${{COMP_WORDS[@]}}")
         cword=$COMP_CWORD
     else
         if type _get_comp_words_by_ref &>/dev/null; then
             _get_comp_words_by_ref -n : cur prev words cword
         else
-            cur="${COMP_WORDS[COMP_CWORD]}"
-            prev="${COMP_WORDS[COMP_CWORD-1]}"
-            words=("${COMP_WORDS[@]}")
+            cur="${{COMP_WORDS[COMP_CWORD]}}"
+            prev="${{COMP_WORDS[COMP_CWORD-1]}}"
+            words=("${{COMP_WORDS[@]}}")
             cword=$COMP_CWORD
         fi
     fi
 
     # Main commands
-    local commands="'''
-        + " ".join(all_commands)
-        + """"
+    local commands="{" ".join(all_commands)}"
 
-    if [[ ${cword} -eq 1 ]]; then
-        COMPREPLY=($(compgen -W "${commands}" -- "${cur}"))
+    if [[ ${{cword}} -eq 1 ]]; then
+        COMPREPLY=($(compgen -W "${{commands}}" -- "${{cur}}"))
         return 0
     fi
 
     # Find the main command
     local cmd=""
     local cmd_idx=1
-    for ((i=1; i < ${cword}; i++)); do
-        if [[ "${words[i]}" != -* ]]; then
-            cmd="${words[i]}"
+    for ((i=1; i < ${{cword}}; i++)); do
+        if [[ "${{words[i]}}" != -* ]]; then
+            cmd="${{words[i]}}"
             cmd_idx=$i
             break
         fi
     done
 
     # Complete based on command
-    case "${cmd}" in
+    case "${{cmd}}" in
 """
-    )
 
     # Generate cases for each command
     for cmd_name, cmd_info in cli_info["subcommands"].items():
@@ -236,12 +232,12 @@ _ehaye_cli_completions() {
         script += "\n            ;;\n"
 
     script += """        *)
-            if [[ "${cur}" == -* ]]; then
-                COMPREPLY=($(compgen -W "--help" -- "${cur}"))
+            if [[ "${{cur}}" == -* ]]; then
+                COMPREPLY=($(compgen -W "--help" -- "${{cur}}"))
             fi
             ;;
     esac
-}
+}}
 
 # Only enable completion for interactive shells
 if [[ $- == *i* ]]; then
