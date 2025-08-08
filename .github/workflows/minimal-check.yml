@@ -42,7 +42,7 @@ jobs:
         # Verify installation
         python -c "from commands.subs.build import build; print('Import successful')"
         
-        # Run tests
+        # Run tests with pinned versions
         black . --check
         ruff check .
         mypy commands
