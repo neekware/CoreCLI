@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
-"""Generate shell completion script from CLI structure"""
+"""Generate shell completion script from CLI structure with modular completion support"""
 
-from typing import Any
+import importlib
+from pathlib import Path
+from typing import Any, Callable, Optional
 
 import click
 
@@ -176,54 +178,50 @@ def generate_completion_script(cli_info: dict[str, Any]) -> str:
     # First, collect all commands and their structures
     all_commands = list(cli_info["subcommands"].keys())
 
-    script = (
-        '''#!/bin/bash
+    script = f"""#!/bin/bash
 # Auto-generated completion script for ehAye™ Core CLI
 export _ehaye_cli_completions_loaded=1
 
-_ehaye_cli_completions() {
+_ehaye_cli_completions() {{
     local cur prev words cword
     if [[ -n "$ZSH_VERSION" ]]; then
-        cur="${COMP_WORDS[COMP_CWORD]}"
-        prev="${COMP_WORDS[COMP_CWORD-1]}"
-        words=("${COMP_WORDS[@]}")
+        cur="${{COMP_WORDS[COMP_CWORD]}}"
+        prev="${{COMP_WORDS[COMP_CWORD-1]}}"
+        words=("${{COMP_WORDS[@]}}")
         cword=$COMP_CWORD
     else
         if type _get_comp_words_by_ref &>/dev/null; then
             _get_comp_words_by_ref -n : cur prev words cword
         else
-            cur="${COMP_WORDS[COMP_CWORD]}"
-            prev="${COMP_WORDS[COMP_CWORD-1]}"
-            words=("${COMP_WORDS[@]}")
+            cur="${{COMP_WORDS[COMP_CWORD]}}"
+            prev="${{COMP_WORDS[COMP_CWORD-1]}}"
+            words=("${{COMP_WORDS[@]}}")
             cword=$COMP_CWORD
         fi
     fi
 
     # Main commands
-    local commands="'''
-        + " ".join(all_commands)
-        + """"
+    local commands="{" ".join(all_commands)}"
 
-    if [[ ${cword} -eq 1 ]]; then
-        COMPREPLY=($(compgen -W "${commands}" -- "${cur}"))
+    if [[ ${{cword}} -eq 1 ]]; then
+        COMPREPLY=($(compgen -W "${{commands}}" -- "${{cur}}"))
         return 0
     fi
 
     # Find the main command
     local cmd=""
     local cmd_idx=1
-    for ((i=1; i < ${cword}; i++)); do
-        if [[ "${words[i]}" != -* ]]; then
-            cmd="${words[i]}"
+    for ((i=1; i < ${{cword}}; i++)); do
+        if [[ "${{words[i]}}" != -* ]]; then
+            cmd="${{words[i]}}"
             cmd_idx=$i
             break
         fi
     done
 
     # Complete based on command
-    case "${cmd}" in
+    case "${{cmd}}" in
 """
-    )
 
     # Generate cases for each command
     for cmd_name, cmd_info in cli_info["subcommands"].items():
@@ -234,12 +232,12 @@ _ehaye_cli_completions() {
         script += "\n            ;;\n"
 
     script += """        *)
-            if [[ "${cur}" == -* ]]; then
-                COMPREPLY=($(compgen -W "--help" -- "${cur}"))
+            if [[ "${{cur}}" == -* ]]; then
+                COMPREPLY=($(compgen -W "--help" -- "${{cur}}"))
             fi
             ;;
     esac
-}
+}}
 
 # Only enable completion for interactive shells
 if [[ $- == *i* ]]; then
@@ -257,6 +255,120 @@ fi
 """
 
     return script
+
+
+# Modular completion support
+class ModularCompletionRegistry:
+    """Registry for modular completion functions from subcommand modules."""
+
+    def __init__(self) -> None:
+        """Initialize the completion registry."""
+        self.completions: dict[str, Callable] = {}
+        self._load_completion_modules()
+
+    def _load_completion_modules(self) -> None:
+        """Load completion definitions from all subcommand modules."""
+        # Get the subs directory
+        subs_dir = Path(__file__).parent.parent / "subs"
+
+        # Iterate through each subcommand directory
+        for subdir in subs_dir.iterdir():
+            if subdir.is_dir() and not subdir.name.startswith("_"):
+                # Check for completion.py
+                if (subdir / "completion.py").exists():
+                    try:
+                        # Import the completion module
+                        module_name = f"commands.subs.{subdir.name}.completion"
+                        module = importlib.import_module(module_name)
+
+                        # Get the COMPLETIONS registry if it exists
+                        if hasattr(module, "COMPLETIONS"):
+                            completions = module.COMPLETIONS
+                            for cmd_name, completer in completions.items():
+                                # Register with full path for nested commands
+                                self.completions[f"{subdir.name}.{cmd_name}"] = (
+                                    completer
+                                )
+                    except ImportError:
+                        # Silently skip if module can't be imported
+                        pass
+
+    def get_completions(
+        self, command_path: str, ctx: object, args: list[str], incomplete: str
+    ) -> list[str]:
+        """Get completions for a given command path.
+
+        Args:
+            command_path: Dot-separated command path (e.g., "dev.format")
+            ctx: Click context
+            args: Already provided arguments
+            incomplete: Current incomplete word
+
+        Returns:
+            List of completion suggestions
+        """
+        # Try to find a completer for this command path
+        if command_path in self.completions:
+            completer = self.completions[command_path]
+            result = completer(ctx, args, incomplete)
+            return result if isinstance(result, list) else []
+
+        # Try parent command
+        parts = command_path.split(".")
+        if len(parts) > 1:
+            parent_path = ".".join(parts[:-1])
+            if parent_path in self.completions:
+                completer = self.completions[parent_path]
+                result = completer(ctx, args, incomplete)
+                return result if isinstance(result, list) else []
+
+        return []
+
+    def get_available_commands(self) -> list[str]:
+        """Get list of all registered command paths.
+
+        Returns:
+            List of command paths with completions
+        """
+        return sorted(self.completions.keys())
+
+
+# Global registry instance
+_registry: Optional[ModularCompletionRegistry] = None
+
+
+def get_completion_registry() -> ModularCompletionRegistry:
+    """Get or create the global completion registry.
+
+    Returns:
+        The completion registry instance
+    """
+    global _registry
+    if _registry is None:
+        _registry = ModularCompletionRegistry()
+    return _registry
+
+
+def get_modular_completions(ctx: object, args: list[str], incomplete: str) -> list[str]:
+    """Main entry point for getting modular completions.
+
+    Args:
+        ctx: Click context
+        args: Already provided arguments
+        incomplete: Current incomplete word
+
+    Returns:
+        List of completion suggestions
+    """
+    registry = get_completion_registry()
+
+    # Build command path from args
+    command_path = ".".join(args) if args else ""
+
+    # Get completions from registry
+    completions = registry.get_completions(command_path, ctx, args, incomplete)
+
+    return completions
 
 
 # This module is meant to be imported, not run directly

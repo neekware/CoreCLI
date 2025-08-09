@@ -9,6 +9,8 @@ __pycache__/
 dist/
 /build/
 .eggs/
+# Ensure egg-info is only in .venv
+/core_cli.egg-info/
 
 # Virtual environments
 .venv/
@@ -33,6 +35,16 @@ logs/
 models/
 *.log
 
+# Test artifacts
+tests/env/tmp/
+tests/**/*.tmp
+tests/**/*.temp
+tests/**/__pycache__/
+.pytest_cache/
+.coverage
+htmlcov/
+*.coverage
+
 # Temporary files
 *.tmp
 *.temp
@@ -41,8 +53,9 @@ models/
 
 # CLI executable is installed in .venv/bin/cli
 
-# Auto-generated completion scripts
-commands/autogen/
+# Auto-generated completion scripts (keep .gitkeep)
+commands/autogen/*
+!commands/autogen/.gitkeep
 
 # Keep .claude directory structure but ignore some files
 .claude/*

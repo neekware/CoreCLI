@@ -15,7 +15,7 @@ def all() -> None:
         (["black", "--check", "."], "Formatting check"),
         (["ruff", "check", "."], "Linting"),
         (["mypy", "commands"], "Type checking"),
-        (["python", "commands/tests/test_cmd_completion.py"], "Completion tests"),
+        (["python", "tests/commands/test_cmd_completion.py"], "Completion tests"),
         (["pytest", "-v"], "Tests"),
     ]
 

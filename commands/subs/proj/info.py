@@ -1,15 +1,16 @@
 """Project information command"""
 
 import subprocess
-from pathlib import Path
 
 import click
+
+from commands.utils.paths import get_paths
 
 
 @click.command()
 def info() -> None:
     """Show project information"""
-    project_root = Path(__file__).parent.parent.parent.parent
+    project_root = get_paths().root
 
     click.echo(f"Project root: {project_root}")
 

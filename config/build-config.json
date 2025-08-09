@@ -1,0 +1,44 @@
+{
+  "name": "ehAye Core CLI",
+  "version": "1.0.0",
+  "build": {
+    "optimization_level": "O2",
+    "parallel": true,
+    "clean_before_build": false,
+    "target_platforms": ["linux", "macos", "windows"],
+    "cross_compile": false,
+    "output_dir": "build",
+    "dist_dir": "dist"
+  },
+  "python": {
+    "min_version": "3.9",
+    "max_version": "3.12",
+    "dependencies": {
+      "runtime": [
+        "click>=8.0",
+        "rich>=13.0",
+        "pyyaml>=6.0",
+        "tomli>=2.0; python_version < '3.11'",
+        "tomlkit>=0.12"
+      ],
+      "dev": [
+        "pytest>=7.0",
+        "pytest-cov>=3.0",
+        "black>=23.0",
+        "ruff>=0.1.0",
+        "mypy>=1.0",
+        "pre-commit>=3.0"
+      ]
+    }
+  },
+  "rust": {
+    "enabled": false,
+    "toolchain": "stable",
+    "target": "x86_64-unknown-linux-gnu"
+  },
+  "docker": {
+    "enabled": true,
+    "base_image": "python:3.11-slim",
+    "registry": "ghcr.io/ehaye/core-cli"
+  }
+}

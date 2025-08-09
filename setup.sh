@@ -121,6 +121,7 @@ install_deps() {
 
     # Configure pip to use temp directory for build artifacts
     export PIP_BUILD=/tmp/pip-build-$$
+    export PIP_EGG_INFO_DIR="$VENV_DIR"
 
     # Install dependencies from tools/requirements.txt (NOT as a package)
     log "Installing dependencies..."

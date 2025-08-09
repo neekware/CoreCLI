@@ -1,0 +1,48 @@
+{
+  "project": {
+    "name": "ehAye Core CLI",
+    "description": "Production-Grade Universal Development Framework",
+    "version": "1.0.0",
+    "author": "Val Neekman",
+    "email": "info@neekware.com",
+    "license": "MIT",
+    "homepage": "https://github.com/ehaye/core-cli",
+    "repository": "https://github.com/ehaye/core-cli.git"
+  },
+  "features": {
+    "telemetry": false,
+    "auto_update": false,
+    "plugins": true,
+    "ai_integration": false,
+    "cloud_sync": false
+  },
+  "paths": {
+    "commands": "commands",
+    "tests": "tests",
+    "docs": "docs",
+    "config": "config",
+    "tools": "tools",
+    "examples": "examples",
+    "build": "build",
+    "dist": "dist",
+    "cache": ".cache"
+  },
+  "defaults": {
+    "log_level": "INFO",
+    "output_format": "colored",
+    "max_workers": 4,
+    "timeout": 60
+  },
+  "integrations": {
+    "github": {
+      "enabled": true,
+      "api_version": "v3",
+      "base_url": "https://api.github.com"
+    },
+    "pypi": {
+      "enabled": true,
+      "index_url": "https://pypi.org/simple",
+      "upload_url": "https://upload.pypi.org/legacy/"
+    }
+  }
+}

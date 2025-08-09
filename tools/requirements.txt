@@ -1,8 +1,11 @@
 # Development dependencies for ehAye™ Core CLI
-click>=8.0
-pytest>=7.0
-pytest-cov>=3.0
-black>=23.0
-ruff>=0.1.0
-mypy>=1.0
-pre-commit>=3.0
+# Pinned versions for consistency between dev and CI
+click==8.2.1
+pytest==8.4.1
+pytest-cov==6.2.1
+black==25.1.0
+ruff==0.12.8
+mypy==1.17.1
+pre-commit==4.2.0
+types-PyYAML==6.0.12.20250516
+PyYAML==6.0.2
